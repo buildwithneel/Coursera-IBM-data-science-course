@@ -1,0 +1,4950 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_21e26481c996c84b722e96ed77eb3244 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ardhi/Leaflet.MousePosition/src/L.Control.MousePosition.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+    <div style="
+        position: fixed; 
+        bottom: 30px; left: 30px; width: 240px; height: 190px; 
+        background-color: white; border: 2px solid #0D47A1; border-radius: 8px;
+        z-index: 9999; font-size: 12px; padding: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        font-family: Arial, sans-serif;
+    ">
+        <b style="color: #0D47A1; font-size: 13px;">SpaceX Map Legend</b><br>
+        <hr style="margin: 6px 0;">
+        <i class="fa fa-rocket" style="color: #1A237E;"></i>&nbsp; Launch Complex Sites<br>
+        <span style="color: green; font-weight: bold;">●</span>&nbsp; Successful Landing (Class 1)<br>
+        <span style="color: red; font-weight: bold;">●</span>&nbsp; Failed / Expended Landing (Class 0)<br>
+        <span style="color: #00838F; font-weight: bold;">―</span>&nbsp; Coastline Proximity Line<br>
+        <span style="color: #F57C00; font-weight: bold;">--</span>&nbsp; Highway Distance<br>
+        <span style="color: #C2185B; font-weight: bold;">--</span>&nbsp; Nearest Urban City<br>
+    </div>
+    
+    
+            <div class="folium-map" id="map_21e26481c996c84b722e96ed77eb3244" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_21e26481c996c84b722e96ed77eb3244 = L.map(
+                "map_21e26481c996c84b722e96ed77eb3244",
+                {
+                    center: [30.0, -95.0],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 5,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_195988c37c1867c72fc5ddcc4f9f8e39 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_195988c37c1867c72fc5ddcc4f9f8e39.addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var mouse_position_3b1c950d3f1459bcfb759cacf13110ae = new L.Control.MousePosition(
+                {
+  "position": "topright",
+  "separator": " | Long: ",
+  "emptyString": "Unavailable",
+  "lngFirst": false,
+  "numDigits": 20,
+  "prefix": "Lat: ",
+}
+            );
+            mouse_position_3b1c950d3f1459bcfb759cacf13110ae.options["latFormatter"] =
+                function(num) {return L.Util.formatNum(num, 5);};;
+            mouse_position_3b1c950d3f1459bcfb759cacf13110ae.options["lngFormatter"] =
+                function(num) {return L.Util.formatNum(num, 5);};;
+            map_21e26481c996c84b722e96ed77eb3244.addControl(mouse_position_3b1c950d3f1459bcfb759cacf13110ae);
+        
+    
+            var circle_6e46e17a1a70cfe2fa8d29593bc3c40b = L.circle(
+                [28.562302, -80.577356],
+                {"bubblingMouseEvents": true, "color": "#1A237E", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3F51B5", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1000, "stroke": true, "weight": 3}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            circle_6e46e17a1a70cfe2fa8d29593bc3c40b.bindTooltip(
+                `<div>
+                     Cape Canaveral Space Force Station SLC-40 (Launch Perimeter)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f3b102c607a09594e2b7bc7e510ce42d = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var icon_d6bb70887f97855026757dc7552e9ed4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "rocket",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_042c9782eb96b484153086bac9b7e743 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_f1fd46321312e4e374aeb1e92c7db8cf = $(`<div id="html_f1fd46321312e4e374aeb1e92c7db8cf" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 200px;">             <h4 style="color: #0D47A1; margin-bottom: 4px;">CCAFS SLC 40</h4>             <b>Full Name:</b> Cape Canaveral Space Force Station SLC-40<br>             <b>State:</b> Florida<br>             <hr style="margin: 5px 0;">             <b>Total Launches:</b> 55<br>             <b>Successful Landings:</b> 33<br>             <b>Success Rate:</b> <span style="color: orange; font-weight: bold;">60.0%</span>         </div>         </div>`)[0];
+                popup_042c9782eb96b484153086bac9b7e743.setContent(html_f1fd46321312e4e374aeb1e92c7db8cf);
+            
+        
+
+        marker_f3b102c607a09594e2b7bc7e510ce42d.bindPopup(popup_042c9782eb96b484153086bac9b7e743)
+        ;
+
+        
+    
+    
+            marker_f3b102c607a09594e2b7bc7e510ce42d.bindTooltip(
+                `<div>
+                     CCAFS SLC 40: 60.0% Success
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f3b102c607a09594e2b7bc7e510ce42d.setIcon(icon_d6bb70887f97855026757dc7552e9ed4);
+            
+    
+            var poly_line_b2943558db0ef20e5420e6ce2b9d7361 = L.polyline(
+                [[28.562302, -80.577356], [28.56367, -80.56763]],
+                {"bubblingMouseEvents": true, "color": "#00838F", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#00838F", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            poly_line_b2943558db0ef20e5420e6ce2b9d7361.bindTooltip(
+                `<div>
+                     CCAFS SLC 40 to Coastline: 0.96 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_c1d1060660fc825803adf4ac77ad2f6d = L.marker(
+                [28.56367, -80.56763],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var div_icon_429a085a0988ea0c20b07a225ac6ceea = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 10pt; font-weight: bold; color: #00838F; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #00838F; white-space: nowrap;\"\u003eCoastline: 0.96 km\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_c1d1060660fc825803adf4ac77ad2f6d.setIcon(div_icon_429a085a0988ea0c20b07a225ac6ceea);
+            
+    
+            var poly_line_9b478255ffb64c64ddbc41cd5b121633 = L.polyline(
+                [[28.562302, -80.577356], [28.56321, -80.57077]],
+                {"bubblingMouseEvents": true, "color": "#F57C00", "dashArray": "5, 10", "dashOffset": null, "fill": false, "fillColor": "#F57C00", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            poly_line_9b478255ffb64c64ddbc41cd5b121633.bindTooltip(
+                `<div>
+                     CCAFS SLC 40 to Highway: 0.65 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_c942765fca3269e7f9a7a6f7e9135935 = L.marker(
+                [28.56321, -80.57077],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var div_icon_f5c9b10d7a4735c231aa30b78dffd639 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 10pt; font-weight: bold; color: #F57C00; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #F57C00; white-space: nowrap;\"\u003eHighway: 0.65 km\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_c942765fca3269e7f9a7a6f7e9135935.setIcon(div_icon_f5c9b10d7a4735c231aa30b78dffd639);
+            
+    
+            var poly_line_267e37bc0d13df81e72200e67577f6d1 = L.polyline(
+                [[28.562302, -80.577356], [28.3922, -80.6077]],
+                {"bubblingMouseEvents": true, "color": "#C2185B", "dashArray": "5, 10", "dashOffset": null, "fill": false, "fillColor": "#C2185B", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            poly_line_267e37bc0d13df81e72200e67577f6d1.bindTooltip(
+                `<div>
+                     CCAFS SLC 40 to City: 19.15 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_1b5b0376691bf3b5fa1e39b9584bad1b = L.marker(
+                [28.3922, -80.6077],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var div_icon_120c5ca16fe177bc71ad2204db5c2584 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 10pt; font-weight: bold; color: #C2185B; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #C2185B; white-space: nowrap;\"\u003eCity: 19.15 km\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_1b5b0376691bf3b5fa1e39b9584bad1b.setIcon(div_icon_120c5ca16fe177bc71ad2204db5c2584);
+            
+    
+            var circle_f9b72df96691aadf53a4686dbb558604 = L.circle(
+                [28.573255, -80.646895],
+                {"bubblingMouseEvents": true, "color": "#1A237E", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3F51B5", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1000, "stroke": true, "weight": 3}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            circle_f9b72df96691aadf53a4686dbb558604.bindTooltip(
+                `<div>
+                     Kennedy Space Center Launch Complex 39A (Launch Perimeter)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_d01186e5ab841bf9909b3706fb2aa41b = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var icon_174e4357329c48b01cf378ff08979ee4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "rocket",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1fad5dd8b7f23b78378b7034c418e42e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9b5e4f27c4cbc5aef7212efdce3a5761 = $(`<div id="html_9b5e4f27c4cbc5aef7212efdce3a5761" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 200px;">             <h4 style="color: #0D47A1; margin-bottom: 4px;">KSC LC 39A</h4>             <b>Full Name:</b> Kennedy Space Center Launch Complex 39A<br>             <b>State:</b> Florida<br>             <hr style="margin: 5px 0;">             <b>Total Launches:</b> 22<br>             <b>Successful Landings:</b> 17<br>             <b>Success Rate:</b> <span style="color: green; font-weight: bold;">77.3%</span>         </div>         </div>`)[0];
+                popup_1fad5dd8b7f23b78378b7034c418e42e.setContent(html_9b5e4f27c4cbc5aef7212efdce3a5761);
+            
+        
+
+        marker_d01186e5ab841bf9909b3706fb2aa41b.bindPopup(popup_1fad5dd8b7f23b78378b7034c418e42e)
+        ;
+
+        
+    
+    
+            marker_d01186e5ab841bf9909b3706fb2aa41b.bindTooltip(
+                `<div>
+                     KSC LC 39A: 77.3% Success
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d01186e5ab841bf9909b3706fb2aa41b.setIcon(icon_174e4357329c48b01cf378ff08979ee4);
+            
+    
+            var poly_line_a1487208c391a51fc758031db5233b3c = L.polyline(
+                [[28.573255, -80.646895], [28.58022, -80.64242]],
+                {"bubblingMouseEvents": true, "color": "#00838F", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#00838F", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            poly_line_a1487208c391a51fc758031db5233b3c.bindTooltip(
+                `<div>
+                     KSC LC 39A to Coastline: 0.89 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_daaec1a312aa870ae99722fa8d3532cc = L.marker(
+                [28.58022, -80.64242],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var div_icon_49d810fd517435a72f743671838a3ad0 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 10pt; font-weight: bold; color: #00838F; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #00838F; white-space: nowrap;\"\u003eCoastline: 0.89 km\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_daaec1a312aa870ae99722fa8d3532cc.setIcon(div_icon_49d810fd517435a72f743671838a3ad0);
+            
+    
+            var poly_line_7cfba59727e449ae9868d8f418d3a82f = L.polyline(
+                [[28.573255, -80.646895], [28.57351, -80.65545]],
+                {"bubblingMouseEvents": true, "color": "#F57C00", "dashArray": "5, 10", "dashOffset": null, "fill": false, "fillColor": "#F57C00", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            poly_line_7cfba59727e449ae9868d8f418d3a82f.bindTooltip(
+                `<div>
+                     KSC LC 39A to Highway: 0.84 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4535f03514ec6298e5a396a1cdc5bf49 = L.marker(
+                [28.57351, -80.65545],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var div_icon_b89ba3e40e8c64ad5ea08b117bbf3f58 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 10pt; font-weight: bold; color: #F57C00; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #F57C00; white-space: nowrap;\"\u003eHighway: 0.84 km\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_4535f03514ec6298e5a396a1cdc5bf49.setIcon(div_icon_b89ba3e40e8c64ad5ea08b117bbf3f58);
+            
+    
+            var poly_line_66233e58359f5f94df48049e9bcb6096 = L.polyline(
+                [[28.573255, -80.646895], [28.6122, -80.8076]],
+                {"bubblingMouseEvents": true, "color": "#C2185B", "dashArray": "5, 10", "dashOffset": null, "fill": false, "fillColor": "#C2185B", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            poly_line_66233e58359f5f94df48049e9bcb6096.bindTooltip(
+                `<div>
+                     KSC LC 39A to City: 16.28 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_d6b673e8a438d8bf21070eb27b0fcde8 = L.marker(
+                [28.6122, -80.8076],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var div_icon_42059ef34ea6bd7676cf6e3364cbea40 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 10pt; font-weight: bold; color: #C2185B; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #C2185B; white-space: nowrap;\"\u003eCity: 16.28 km\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_d6b673e8a438d8bf21070eb27b0fcde8.setIcon(div_icon_42059ef34ea6bd7676cf6e3364cbea40);
+            
+    
+            var circle_2398cb85644238163f80c8d611fb82c7 = L.circle(
+                [34.632834, -120.610745],
+                {"bubblingMouseEvents": true, "color": "#1A237E", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3F51B5", "fillOpacity": 0.25, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 1000, "stroke": true, "weight": 3}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            circle_2398cb85644238163f80c8d611fb82c7.bindTooltip(
+                `<div>
+                     Vandenberg Space Force Base Space Launch Complex 4E (Launch Perimeter)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_0813e2a3a437f20367e66ae93bab1977 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var icon_6ec1a80dab14f3f8af7cc9388e5f9e8a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkblue",
+  "iconColor": "white",
+  "icon": "rocket",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a83fd1e24993b9d143cfb6a62362f17b = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_3e39e153df100f3779fa8e1f7c13524d = $(`<div id="html_3e39e153df100f3779fa8e1f7c13524d" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 200px;">             <h4 style="color: #0D47A1; margin-bottom: 4px;">VAFB SLC 4E</h4>             <b>Full Name:</b> Vandenberg Space Force Base Space Launch Complex 4E<br>             <b>State:</b> California<br>             <hr style="margin: 5px 0;">             <b>Total Launches:</b> 13<br>             <b>Successful Landings:</b> 10<br>             <b>Success Rate:</b> <span style="color: green; font-weight: bold;">76.9%</span>         </div>         </div>`)[0];
+                popup_a83fd1e24993b9d143cfb6a62362f17b.setContent(html_3e39e153df100f3779fa8e1f7c13524d);
+            
+        
+
+        marker_0813e2a3a437f20367e66ae93bab1977.bindPopup(popup_a83fd1e24993b9d143cfb6a62362f17b)
+        ;
+
+        
+    
+    
+            marker_0813e2a3a437f20367e66ae93bab1977.bindTooltip(
+                `<div>
+                     VAFB SLC 4E: 76.9% Success
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0813e2a3a437f20367e66ae93bab1977.setIcon(icon_6ec1a80dab14f3f8af7cc9388e5f9e8a);
+            
+    
+            var poly_line_ecc1f1d6e4ff450ff1de723d3bed6fae = L.polyline(
+                [[34.632834, -120.610745], [34.63467, -120.62534]],
+                {"bubblingMouseEvents": true, "color": "#00838F", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#00838F", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            poly_line_ecc1f1d6e4ff450ff1de723d3bed6fae.bindTooltip(
+                `<div>
+                     VAFB SLC 4E to Coastline: 1.35 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_5ac65a8fcd3eaf531a21ae2d4add0b29 = L.marker(
+                [34.63467, -120.62534],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var div_icon_50a4fdb352be3a14f59cd5db59c1c9aa = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 10pt; font-weight: bold; color: #00838F; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #00838F; white-space: nowrap;\"\u003eCoastline: 1.35 km\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_5ac65a8fcd3eaf531a21ae2d4add0b29.setIcon(div_icon_50a4fdb352be3a14f59cd5db59c1c9aa);
+            
+    
+            var poly_line_39b36f163412c5ffc92bcb272051986c = L.polyline(
+                [[34.632834, -120.610745], [34.6375, -120.6212]],
+                {"bubblingMouseEvents": true, "color": "#F57C00", "dashArray": "5, 10", "dashOffset": null, "fill": false, "fillColor": "#F57C00", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            poly_line_39b36f163412c5ffc92bcb272051986c.bindTooltip(
+                `<div>
+                     VAFB SLC 4E to Highway: 1.09 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_fecc5444e7f9e56d4c06b3e09164b61d = L.marker(
+                [34.6375, -120.6212],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var div_icon_06059b2eedc457c24801f6545e497721 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 10pt; font-weight: bold; color: #F57C00; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #F57C00; white-space: nowrap;\"\u003eHighway: 1.09 km\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_fecc5444e7f9e56d4c06b3e09164b61d.setIcon(div_icon_06059b2eedc457c24801f6545e497721);
+            
+    
+            var poly_line_2d76e19046c27ddb44218e22539eb127 = L.polyline(
+                [[34.632834, -120.610745], [34.6391, -120.4579]],
+                {"bubblingMouseEvents": true, "color": "#C2185B", "dashArray": "5, 10", "dashOffset": null, "fill": false, "fillColor": "#C2185B", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            poly_line_2d76e19046c27ddb44218e22539eb127.bindTooltip(
+                `<div>
+                     VAFB SLC 4E to City: 14.01 km
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_55e6ab9ede34327e3b16d2dbf79a9465 = L.marker(
+                [34.6391, -120.4579],
+                {
+}
+            ).addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+    
+            var div_icon_fd810ae7c61995b065c3ea7f1baf1100 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 10pt; font-weight: bold; color: #C2185B; background: white; padding: 2px 4px; border-radius: 3px; border: 1px solid #C2185B; white-space: nowrap;\"\u003eCity: 14.01 km\u003c/div\u003e",
+  "className": "empty",
+});
+        
+    
+                marker_55e6ab9ede34327e3b16d2dbf79a9465.setIcon(div_icon_fd810ae7c61995b065c3ea7f1baf1100);
+            
+    
+            var marker_cluster_930c9ad24a79cec35a806afb53a02b26 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_f8db6a8491c8299f0830bbce9c0c9b4e = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_4bf4d4663ee336d13ef15594de127752 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_31b06cd46836d5ce1189e93779cd8399 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_998bc82c8506fe0171cee110b27a7062 = $(`<div id="html_998bc82c8506fe0171cee110b27a7062" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #1 (B0003)</b><br>             <b>Date:</b> 2010-06-04<br>             <b>Payload Mass:</b> 6105.0 kg<br>             <b>Orbit:</b> LEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_31b06cd46836d5ce1189e93779cd8399.setContent(html_998bc82c8506fe0171cee110b27a7062);
+            
+        
+
+        marker_f8db6a8491c8299f0830bbce9c0c9b4e.bindPopup(popup_31b06cd46836d5ce1189e93779cd8399)
+        ;
+
+        
+    
+    
+            marker_f8db6a8491c8299f0830bbce9c0c9b4e.bindTooltip(
+                `<div>
+                     Flight #1: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f8db6a8491c8299f0830bbce9c0c9b4e.setIcon(icon_4bf4d4663ee336d13ef15594de127752);
+            
+    
+            var marker_716c9a73a134534c935d831ca25544cc = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_93c102eb7398d7a9100317116280fc12 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a058438772af2198f437a02c3ea2fa41 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0f100269ecec137b0b67634b9b95d2a4 = $(`<div id="html_0f100269ecec137b0b67634b9b95d2a4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #2 (B0005)</b><br>             <b>Date:</b> 2012-05-22<br>             <b>Payload Mass:</b> 525.0 kg<br>             <b>Orbit:</b> LEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_a058438772af2198f437a02c3ea2fa41.setContent(html_0f100269ecec137b0b67634b9b95d2a4);
+            
+        
+
+        marker_716c9a73a134534c935d831ca25544cc.bindPopup(popup_a058438772af2198f437a02c3ea2fa41)
+        ;
+
+        
+    
+    
+            marker_716c9a73a134534c935d831ca25544cc.bindTooltip(
+                `<div>
+                     Flight #2: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_716c9a73a134534c935d831ca25544cc.setIcon(icon_93c102eb7398d7a9100317116280fc12);
+            
+    
+            var marker_e708bcab84e5cb98d522af63ef1e4152 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_48626b5cc2d46906b25fad4454969881 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f823a7bce35d66727c869412adba96a2 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_14ac89271c6d74175facf1d02807b297 = $(`<div id="html_14ac89271c6d74175facf1d02807b297" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #3 (B0007)</b><br>             <b>Date:</b> 2013-03-01<br>             <b>Payload Mass:</b> 677.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_f823a7bce35d66727c869412adba96a2.setContent(html_14ac89271c6d74175facf1d02807b297);
+            
+        
+
+        marker_e708bcab84e5cb98d522af63ef1e4152.bindPopup(popup_f823a7bce35d66727c869412adba96a2)
+        ;
+
+        
+    
+    
+            marker_e708bcab84e5cb98d522af63ef1e4152.bindTooltip(
+                `<div>
+                     Flight #3: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e708bcab84e5cb98d522af63ef1e4152.setIcon(icon_48626b5cc2d46906b25fad4454969881);
+            
+    
+            var marker_0a195bcc1ea7f8d28c6872bde9a47cd1 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_f64ee4e31ab4fd9b40d3771e530a3a06 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_39aef0a3fdc50f562cad30c5863fece5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c1b1afcd8e96d95e0499d22f24f4758a = $(`<div id="html_c1b1afcd8e96d95e0499d22f24f4758a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #4 (B1003)</b><br>             <b>Date:</b> 2013-09-29<br>             <b>Payload Mass:</b> 500.0 kg<br>             <b>Orbit:</b> PO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> False Ocean (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_39aef0a3fdc50f562cad30c5863fece5.setContent(html_c1b1afcd8e96d95e0499d22f24f4758a);
+            
+        
+
+        marker_0a195bcc1ea7f8d28c6872bde9a47cd1.bindPopup(popup_39aef0a3fdc50f562cad30c5863fece5)
+        ;
+
+        
+    
+    
+            marker_0a195bcc1ea7f8d28c6872bde9a47cd1.bindTooltip(
+                `<div>
+                     Flight #4: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0a195bcc1ea7f8d28c6872bde9a47cd1.setIcon(icon_f64ee4e31ab4fd9b40d3771e530a3a06);
+            
+    
+            var marker_3499bc1abe6fa2354a9352ed3f16875d = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_ae33f15dfc17c37f159652c13c6a9f3f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8753bd2d7989cc670f40dcb684e3799d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0d45c3851306f5b3ae18a59b0f963c90 = $(`<div id="html_0d45c3851306f5b3ae18a59b0f963c90" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #5 (B1004)</b><br>             <b>Date:</b> 2013-12-03<br>             <b>Payload Mass:</b> 3170.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_8753bd2d7989cc670f40dcb684e3799d.setContent(html_0d45c3851306f5b3ae18a59b0f963c90);
+            
+        
+
+        marker_3499bc1abe6fa2354a9352ed3f16875d.bindPopup(popup_8753bd2d7989cc670f40dcb684e3799d)
+        ;
+
+        
+    
+    
+            marker_3499bc1abe6fa2354a9352ed3f16875d.bindTooltip(
+                `<div>
+                     Flight #5: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3499bc1abe6fa2354a9352ed3f16875d.setIcon(icon_ae33f15dfc17c37f159652c13c6a9f3f);
+            
+    
+            var marker_c52bc10a23f9ba8bee903f7490bc068f = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_97a99410bda66c7a23c3d43532334c74 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a8986d136313b485cc1885e1e6e80e7f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_87e8c7017c3de4deeeb16d00c06f4049 = $(`<div id="html_87e8c7017c3de4deeeb16d00c06f4049" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #6 (B1005)</b><br>             <b>Date:</b> 2014-01-06<br>             <b>Payload Mass:</b> 3325.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_a8986d136313b485cc1885e1e6e80e7f.setContent(html_87e8c7017c3de4deeeb16d00c06f4049);
+            
+        
+
+        marker_c52bc10a23f9ba8bee903f7490bc068f.bindPopup(popup_a8986d136313b485cc1885e1e6e80e7f)
+        ;
+
+        
+    
+    
+            marker_c52bc10a23f9ba8bee903f7490bc068f.bindTooltip(
+                `<div>
+                     Flight #6: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c52bc10a23f9ba8bee903f7490bc068f.setIcon(icon_97a99410bda66c7a23c3d43532334c74);
+            
+    
+            var marker_974970d51c21b1c36b53f6a6b77cd89a = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_659b3f5c9d7d379abe746fefc4e8b423 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_549ea934e499b7db164511aba34e4e53 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_748e5819a7beadef542a12fd86c5d56c = $(`<div id="html_748e5819a7beadef542a12fd86c5d56c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #7 (B1006)</b><br>             <b>Date:</b> 2014-04-18<br>             <b>Payload Mass:</b> 2296.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True Ocean (Successful Landing)         </div>         </div>`)[0];
+                popup_549ea934e499b7db164511aba34e4e53.setContent(html_748e5819a7beadef542a12fd86c5d56c);
+            
+        
+
+        marker_974970d51c21b1c36b53f6a6b77cd89a.bindPopup(popup_549ea934e499b7db164511aba34e4e53)
+        ;
+
+        
+    
+    
+            marker_974970d51c21b1c36b53f6a6b77cd89a.bindTooltip(
+                `<div>
+                     Flight #7: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_974970d51c21b1c36b53f6a6b77cd89a.setIcon(icon_659b3f5c9d7d379abe746fefc4e8b423);
+            
+    
+            var marker_e5420bd78808399aaad8b1a6ab14908c = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_9c35669abf741d79031120f518d2196a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_30638628bde33e7b91c3d2fce982438c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ff726b416be596acdcf2f6fcf9629057 = $(`<div id="html_ff726b416be596acdcf2f6fcf9629057" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #8 (B1007)</b><br>             <b>Date:</b> 2014-07-14<br>             <b>Payload Mass:</b> 1316.0 kg<br>             <b>Orbit:</b> LEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True Ocean (Successful Landing)         </div>         </div>`)[0];
+                popup_30638628bde33e7b91c3d2fce982438c.setContent(html_ff726b416be596acdcf2f6fcf9629057);
+            
+        
+
+        marker_e5420bd78808399aaad8b1a6ab14908c.bindPopup(popup_30638628bde33e7b91c3d2fce982438c)
+        ;
+
+        
+    
+    
+            marker_e5420bd78808399aaad8b1a6ab14908c.bindTooltip(
+                `<div>
+                     Flight #8: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e5420bd78808399aaad8b1a6ab14908c.setIcon(icon_9c35669abf741d79031120f518d2196a);
+            
+    
+            var marker_9ad5aa54806e1d3e46aad5dd35a0dd3d = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_9a3cb1cac048fb88d73e93f2d4670986 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_693b12725b5268aa024f9524705c90c8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_aef14f08a98048ab8ec1b0a5ae5b79a2 = $(`<div id="html_aef14f08a98048ab8ec1b0a5ae5b79a2" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #9 (B1008)</b><br>             <b>Date:</b> 2014-08-05<br>             <b>Payload Mass:</b> 4535.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_693b12725b5268aa024f9524705c90c8.setContent(html_aef14f08a98048ab8ec1b0a5ae5b79a2);
+            
+        
+
+        marker_9ad5aa54806e1d3e46aad5dd35a0dd3d.bindPopup(popup_693b12725b5268aa024f9524705c90c8)
+        ;
+
+        
+    
+    
+            marker_9ad5aa54806e1d3e46aad5dd35a0dd3d.bindTooltip(
+                `<div>
+                     Flight #9: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9ad5aa54806e1d3e46aad5dd35a0dd3d.setIcon(icon_9a3cb1cac048fb88d73e93f2d4670986);
+            
+    
+            var marker_9961581b36778e8b959244f097a15530 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_df4cc36b61e81959e83bcbbfead09b31 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e180d877a8ec2350e78db2862bdf3a2a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dd6d43e73c6d38f54df52b26a82c285c = $(`<div id="html_dd6d43e73c6d38f54df52b26a82c285c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #10 (B1011)</b><br>             <b>Date:</b> 2014-09-07<br>             <b>Payload Mass:</b> 4428.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_e180d877a8ec2350e78db2862bdf3a2a.setContent(html_dd6d43e73c6d38f54df52b26a82c285c);
+            
+        
+
+        marker_9961581b36778e8b959244f097a15530.bindPopup(popup_e180d877a8ec2350e78db2862bdf3a2a)
+        ;
+
+        
+    
+    
+            marker_9961581b36778e8b959244f097a15530.bindTooltip(
+                `<div>
+                     Flight #10: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9961581b36778e8b959244f097a15530.setIcon(icon_df4cc36b61e81959e83bcbbfead09b31);
+            
+    
+            var marker_5eb6288065ab66f2f0f8c7b702e078c3 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_58b30eb247ee3881ee3f670e823d7514 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9f02cdcd85b04deddb79667e413c0dff = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ed9e0640671509603389d9feb39e31b4 = $(`<div id="html_ed9e0640671509603389d9feb39e31b4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #11 (B1010)</b><br>             <b>Date:</b> 2014-09-21<br>             <b>Payload Mass:</b> 2216.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> False Ocean (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_9f02cdcd85b04deddb79667e413c0dff.setContent(html_ed9e0640671509603389d9feb39e31b4);
+            
+        
+
+        marker_5eb6288065ab66f2f0f8c7b702e078c3.bindPopup(popup_9f02cdcd85b04deddb79667e413c0dff)
+        ;
+
+        
+    
+    
+            marker_5eb6288065ab66f2f0f8c7b702e078c3.bindTooltip(
+                `<div>
+                     Flight #11: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5eb6288065ab66f2f0f8c7b702e078c3.setIcon(icon_58b30eb247ee3881ee3f670e823d7514);
+            
+    
+            var marker_3a114ef6c067a183453e19b741766560 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_79fe2cbb09acb2a602c101012a607f47 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_0e231f7642936abc1fa3ece4c75343ab = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dbf4241ed120103fd7bd5b3d50ba50f9 = $(`<div id="html_dbf4241ed120103fd7bd5b3d50ba50f9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #12 (B1012)</b><br>             <b>Date:</b> 2015-01-10<br>             <b>Payload Mass:</b> 2395.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> False ASDS (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_0e231f7642936abc1fa3ece4c75343ab.setContent(html_dbf4241ed120103fd7bd5b3d50ba50f9);
+            
+        
+
+        marker_3a114ef6c067a183453e19b741766560.bindPopup(popup_0e231f7642936abc1fa3ece4c75343ab)
+        ;
+
+        
+    
+    
+            marker_3a114ef6c067a183453e19b741766560.bindTooltip(
+                `<div>
+                     Flight #12: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3a114ef6c067a183453e19b741766560.setIcon(icon_79fe2cbb09acb2a602c101012a607f47);
+            
+    
+            var marker_f3be5c11a495e01f1ba6bad8c90892a8 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_b573ed66bae6f388bd804b2c7e0008f4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c50aee6447a0d40f07acbd316791c526 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_edbd02b0d65ceaa0ad3e729c7034c914 = $(`<div id="html_edbd02b0d65ceaa0ad3e729c7034c914" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #13 (B1013)</b><br>             <b>Date:</b> 2015-02-11<br>             <b>Payload Mass:</b> 570.0 kg<br>             <b>Orbit:</b> ES-L1<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True Ocean (Successful Landing)         </div>         </div>`)[0];
+                popup_c50aee6447a0d40f07acbd316791c526.setContent(html_edbd02b0d65ceaa0ad3e729c7034c914);
+            
+        
+
+        marker_f3be5c11a495e01f1ba6bad8c90892a8.bindPopup(popup_c50aee6447a0d40f07acbd316791c526)
+        ;
+
+        
+    
+    
+            marker_f3be5c11a495e01f1ba6bad8c90892a8.bindTooltip(
+                `<div>
+                     Flight #13: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f3be5c11a495e01f1ba6bad8c90892a8.setIcon(icon_b573ed66bae6f388bd804b2c7e0008f4);
+            
+    
+            var marker_d3cc7b97359bb7dfcc8b2f75014ef460 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_8a527350bcdacacf33b2c5be5b87c764 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e005007e65fe9a01427ca88bcdd2cc29 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_98004fa8384377e7eaa1a04d588254d4 = $(`<div id="html_98004fa8384377e7eaa1a04d588254d4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #14 (B1015)</b><br>             <b>Date:</b> 2015-04-14<br>             <b>Payload Mass:</b> 1898.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> False ASDS (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_e005007e65fe9a01427ca88bcdd2cc29.setContent(html_98004fa8384377e7eaa1a04d588254d4);
+            
+        
+
+        marker_d3cc7b97359bb7dfcc8b2f75014ef460.bindPopup(popup_e005007e65fe9a01427ca88bcdd2cc29)
+        ;
+
+        
+    
+    
+            marker_d3cc7b97359bb7dfcc8b2f75014ef460.bindTooltip(
+                `<div>
+                     Flight #14: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d3cc7b97359bb7dfcc8b2f75014ef460.setIcon(icon_8a527350bcdacacf33b2c5be5b87c764);
+            
+    
+            var marker_3931daf6549eabc2503ebd46fe04e9e5 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_c59103cb4df190e1c93ac6ef7e38595a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_59fe6fe1bda5274dbc830f0938f998b7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_42a00f1296f279a574d249d214acb9d6 = $(`<div id="html_42a00f1296f279a574d249d214acb9d6" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #15 (B1016)</b><br>             <b>Date:</b> 2015-04-27<br>             <b>Payload Mass:</b> 4707.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_59fe6fe1bda5274dbc830f0938f998b7.setContent(html_42a00f1296f279a574d249d214acb9d6);
+            
+        
+
+        marker_3931daf6549eabc2503ebd46fe04e9e5.bindPopup(popup_59fe6fe1bda5274dbc830f0938f998b7)
+        ;
+
+        
+    
+    
+            marker_3931daf6549eabc2503ebd46fe04e9e5.bindTooltip(
+                `<div>
+                     Flight #15: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3931daf6549eabc2503ebd46fe04e9e5.setIcon(icon_c59103cb4df190e1c93ac6ef7e38595a);
+            
+    
+            var marker_c39190d1bf27c5fa0d7f1f2e0ab227af = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_055f93a2c3051ae411aa68a61a7cf520 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e04ecf938c21246fed7719e3f235d786 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_713af5f7fbcaf1c32fd726cbeb70cdc7 = $(`<div id="html_713af5f7fbcaf1c32fd726cbeb70cdc7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #16 (B1018)</b><br>             <b>Date:</b> 2015-06-28<br>             <b>Payload Mass:</b> 2477.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None ASDS (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_e04ecf938c21246fed7719e3f235d786.setContent(html_713af5f7fbcaf1c32fd726cbeb70cdc7);
+            
+        
+
+        marker_c39190d1bf27c5fa0d7f1f2e0ab227af.bindPopup(popup_e04ecf938c21246fed7719e3f235d786)
+        ;
+
+        
+    
+    
+            marker_c39190d1bf27c5fa0d7f1f2e0ab227af.bindTooltip(
+                `<div>
+                     Flight #16: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c39190d1bf27c5fa0d7f1f2e0ab227af.setIcon(icon_055f93a2c3051ae411aa68a61a7cf520);
+            
+    
+            var marker_6fe009c6a1eb1178fa668ed7c89a7ae9 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_3a7845ae1f36f518a95eab9512ff1608 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d8f853e040d7362673665963e9aa9c62 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5d42c79796ecb630d201759e71799c22 = $(`<div id="html_5d42c79796ecb630d201759e71799c22" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #17 (B1019)</b><br>             <b>Date:</b> 2015-12-22<br>             <b>Payload Mass:</b> 2034.0 kg<br>             <b>Orbit:</b> LEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_d8f853e040d7362673665963e9aa9c62.setContent(html_5d42c79796ecb630d201759e71799c22);
+            
+        
+
+        marker_6fe009c6a1eb1178fa668ed7c89a7ae9.bindPopup(popup_d8f853e040d7362673665963e9aa9c62)
+        ;
+
+        
+    
+    
+            marker_6fe009c6a1eb1178fa668ed7c89a7ae9.bindTooltip(
+                `<div>
+                     Flight #17: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6fe009c6a1eb1178fa668ed7c89a7ae9.setIcon(icon_3a7845ae1f36f518a95eab9512ff1608);
+            
+    
+            var marker_3194d1f1617d5de241e894a9755fda34 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_afe4fb34b49a457c29ffe7138e3b2580 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ab9a23a03a8cca22902470a034fb0ce3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_954f13b99364a450dde6a3c3d794a322 = $(`<div id="html_954f13b99364a450dde6a3c3d794a322" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #18 (B1017)</b><br>             <b>Date:</b> 2016-01-17<br>             <b>Payload Mass:</b> 553.0 kg<br>             <b>Orbit:</b> PO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> False ASDS (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_ab9a23a03a8cca22902470a034fb0ce3.setContent(html_954f13b99364a450dde6a3c3d794a322);
+            
+        
+
+        marker_3194d1f1617d5de241e894a9755fda34.bindPopup(popup_ab9a23a03a8cca22902470a034fb0ce3)
+        ;
+
+        
+    
+    
+            marker_3194d1f1617d5de241e894a9755fda34.bindTooltip(
+                `<div>
+                     Flight #18: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3194d1f1617d5de241e894a9755fda34.setIcon(icon_afe4fb34b49a457c29ffe7138e3b2580);
+            
+    
+            var marker_768005c20f746fd4eb10b4960c5a4fd9 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_c633eb0255cc2781bffc091df7783286 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_db14357bac8af9b3618e7b1be586fa23 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_35cffa737c7f8c8d53f8082d29ca04a7 = $(`<div id="html_35cffa737c7f8c8d53f8082d29ca04a7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #19 (B1020)</b><br>             <b>Date:</b> 2016-03-04<br>             <b>Payload Mass:</b> 5271.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> False ASDS (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_db14357bac8af9b3618e7b1be586fa23.setContent(html_35cffa737c7f8c8d53f8082d29ca04a7);
+            
+        
+
+        marker_768005c20f746fd4eb10b4960c5a4fd9.bindPopup(popup_db14357bac8af9b3618e7b1be586fa23)
+        ;
+
+        
+    
+    
+            marker_768005c20f746fd4eb10b4960c5a4fd9.bindTooltip(
+                `<div>
+                     Flight #19: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_768005c20f746fd4eb10b4960c5a4fd9.setIcon(icon_c633eb0255cc2781bffc091df7783286);
+            
+    
+            var marker_4df583bcf75f1cf54fad70d8354d2b5c = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_38d9ba300a6ca805b4a3f52d60a7f61e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a5ce76ea67547162ebb7d67850345400 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_f2148bbaba973d05fe4b757effa3ec9b = $(`<div id="html_f2148bbaba973d05fe4b757effa3ec9b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #20 (B1021)</b><br>             <b>Date:</b> 2016-04-08<br>             <b>Payload Mass:</b> 3136.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_a5ce76ea67547162ebb7d67850345400.setContent(html_f2148bbaba973d05fe4b757effa3ec9b);
+            
+        
+
+        marker_4df583bcf75f1cf54fad70d8354d2b5c.bindPopup(popup_a5ce76ea67547162ebb7d67850345400)
+        ;
+
+        
+    
+    
+            marker_4df583bcf75f1cf54fad70d8354d2b5c.bindTooltip(
+                `<div>
+                     Flight #20: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4df583bcf75f1cf54fad70d8354d2b5c.setIcon(icon_38d9ba300a6ca805b4a3f52d60a7f61e);
+            
+    
+            var marker_9981b54714d7d13fc32ced1eb243205a = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_464b18b1dd3b0484c60c9dd6e254cc3e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_deeb4d73802f066bfcf529c0b08c4b72 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_65c40a240d323f96293e68f1d03165e3 = $(`<div id="html_65c40a240d323f96293e68f1d03165e3" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #21 (B1022)</b><br>             <b>Date:</b> 2016-05-06<br>             <b>Payload Mass:</b> 4696.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_deeb4d73802f066bfcf529c0b08c4b72.setContent(html_65c40a240d323f96293e68f1d03165e3);
+            
+        
+
+        marker_9981b54714d7d13fc32ced1eb243205a.bindPopup(popup_deeb4d73802f066bfcf529c0b08c4b72)
+        ;
+
+        
+    
+    
+            marker_9981b54714d7d13fc32ced1eb243205a.bindTooltip(
+                `<div>
+                     Flight #21: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_9981b54714d7d13fc32ced1eb243205a.setIcon(icon_464b18b1dd3b0484c60c9dd6e254cc3e);
+            
+    
+            var marker_a26cd84b6486624f9f9e340261180664 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_2a33cb44709f831f95edd781f31501df = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_439f8dbe3b323ad07fc0335fec43a8ec = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_08457ea007640b53961134d4a2c52fd0 = $(`<div id="html_08457ea007640b53961134d4a2c52fd0" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #22 (B1023)</b><br>             <b>Date:</b> 2016-05-27<br>             <b>Payload Mass:</b> 3100.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_439f8dbe3b323ad07fc0335fec43a8ec.setContent(html_08457ea007640b53961134d4a2c52fd0);
+            
+        
+
+        marker_a26cd84b6486624f9f9e340261180664.bindPopup(popup_439f8dbe3b323ad07fc0335fec43a8ec)
+        ;
+
+        
+    
+    
+            marker_a26cd84b6486624f9f9e340261180664.bindTooltip(
+                `<div>
+                     Flight #22: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a26cd84b6486624f9f9e340261180664.setIcon(icon_2a33cb44709f831f95edd781f31501df);
+            
+    
+            var marker_5cdec07b89c2aee899e51837f916a084 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_4b1d2b701d2afa20d677c9aac3bf5500 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f389d952f215ac054887e7a2ce66e124 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dac7ccac8d9f20cc12711c9357bdf71f = $(`<div id="html_dac7ccac8d9f20cc12711c9357bdf71f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #23 (B1025)</b><br>             <b>Date:</b> 2016-07-18<br>             <b>Payload Mass:</b> 2257.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_f389d952f215ac054887e7a2ce66e124.setContent(html_dac7ccac8d9f20cc12711c9357bdf71f);
+            
+        
+
+        marker_5cdec07b89c2aee899e51837f916a084.bindPopup(popup_f389d952f215ac054887e7a2ce66e124)
+        ;
+
+        
+    
+    
+            marker_5cdec07b89c2aee899e51837f916a084.bindTooltip(
+                `<div>
+                     Flight #23: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5cdec07b89c2aee899e51837f916a084.setIcon(icon_4b1d2b701d2afa20d677c9aac3bf5500);
+            
+    
+            var marker_4e812b2e311cf06bfcfaceacbc355d65 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_d671431e059c9b7d313b3b021577e2a5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_83135843bbb62f41d890bf58e0df9c20 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_00a219656b0dd120057e86dcd1c110da = $(`<div id="html_00a219656b0dd120057e86dcd1c110da" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #24 (B1026)</b><br>             <b>Date:</b> 2016-08-14<br>             <b>Payload Mass:</b> 4600.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_83135843bbb62f41d890bf58e0df9c20.setContent(html_00a219656b0dd120057e86dcd1c110da);
+            
+        
+
+        marker_4e812b2e311cf06bfcfaceacbc355d65.bindPopup(popup_83135843bbb62f41d890bf58e0df9c20)
+        ;
+
+        
+    
+    
+            marker_4e812b2e311cf06bfcfaceacbc355d65.bindTooltip(
+                `<div>
+                     Flight #24: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4e812b2e311cf06bfcfaceacbc355d65.setIcon(icon_d671431e059c9b7d313b3b021577e2a5);
+            
+    
+            var marker_34e57e7103b25c10ab719ead8fa8e854 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_85e6933b7430f51033883c1f95f4f384 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_18a3190e595ed6a7948c2bbec886c049 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_21b38f45630377b4e2a6991d94f0a2b4 = $(`<div id="html_21b38f45630377b4e2a6991d94f0a2b4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #25 (B1028)</b><br>             <b>Date:</b> 2016-09-01<br>             <b>Payload Mass:</b> 5500.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None ASDS (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_18a3190e595ed6a7948c2bbec886c049.setContent(html_21b38f45630377b4e2a6991d94f0a2b4);
+            
+        
+
+        marker_34e57e7103b25c10ab719ead8fa8e854.bindPopup(popup_18a3190e595ed6a7948c2bbec886c049)
+        ;
+
+        
+    
+    
+            marker_34e57e7103b25c10ab719ead8fa8e854.bindTooltip(
+                `<div>
+                     Flight #25: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_34e57e7103b25c10ab719ead8fa8e854.setIcon(icon_85e6933b7430f51033883c1f95f4f384);
+            
+    
+            var marker_1547b9cabed24e4608c121f7b32dbd35 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_dd31aff57b123f508fa5763916284862 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f4d506c6865628a77d76a2a41cb5553b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9c250568e6fcba747eb9fc6edf29e614 = $(`<div id="html_9c250568e6fcba747eb9fc6edf29e614" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #26 (B1029)</b><br>             <b>Date:</b> 2017-01-14<br>             <b>Payload Mass:</b> 9600.0 kg<br>             <b>Orbit:</b> PO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_f4d506c6865628a77d76a2a41cb5553b.setContent(html_9c250568e6fcba747eb9fc6edf29e614);
+            
+        
+
+        marker_1547b9cabed24e4608c121f7b32dbd35.bindPopup(popup_f4d506c6865628a77d76a2a41cb5553b)
+        ;
+
+        
+    
+    
+            marker_1547b9cabed24e4608c121f7b32dbd35.bindTooltip(
+                `<div>
+                     Flight #26: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1547b9cabed24e4608c121f7b32dbd35.setIcon(icon_dd31aff57b123f508fa5763916284862);
+            
+    
+            var marker_54b14cc2b72a4bc1f33f1c1663928fcb = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_57d6c31d7199578f01e17e08ae59a7fd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_96d51235538edd01c2e22ecad7f7573d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_bf1532fc0ab79c539d46f5558f8d0cca = $(`<div id="html_bf1532fc0ab79c539d46f5558f8d0cca" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #27 (B1031)</b><br>             <b>Date:</b> 2017-02-19<br>             <b>Payload Mass:</b> 2490.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_96d51235538edd01c2e22ecad7f7573d.setContent(html_bf1532fc0ab79c539d46f5558f8d0cca);
+            
+        
+
+        marker_54b14cc2b72a4bc1f33f1c1663928fcb.bindPopup(popup_96d51235538edd01c2e22ecad7f7573d)
+        ;
+
+        
+    
+    
+            marker_54b14cc2b72a4bc1f33f1c1663928fcb.bindTooltip(
+                `<div>
+                     Flight #27: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_54b14cc2b72a4bc1f33f1c1663928fcb.setIcon(icon_57d6c31d7199578f01e17e08ae59a7fd);
+            
+    
+            var marker_bf6fa586fc56f570578b629723923075 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_e6216d55ed8d4e448b34c5ad690bf480 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_5fc3f9c51f337f5edfaa1da62bdca821 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_dde7bc96e30f3231d7bc9140805cc017 = $(`<div id="html_dde7bc96e30f3231d7bc9140805cc017" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #28 (B1030)</b><br>             <b>Date:</b> 2017-03-16<br>             <b>Payload Mass:</b> 5600.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_5fc3f9c51f337f5edfaa1da62bdca821.setContent(html_dde7bc96e30f3231d7bc9140805cc017);
+            
+        
+
+        marker_bf6fa586fc56f570578b629723923075.bindPopup(popup_5fc3f9c51f337f5edfaa1da62bdca821)
+        ;
+
+        
+    
+    
+            marker_bf6fa586fc56f570578b629723923075.bindTooltip(
+                `<div>
+                     Flight #28: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bf6fa586fc56f570578b629723923075.setIcon(icon_e6216d55ed8d4e448b34c5ad690bf480);
+            
+    
+            var marker_aef8bf27a27db5a09148a904edc795f3 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_3236c8386cd6b308329d8a78a766177c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_15582677977fed0828b99bce75462cd3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_70197eff19c0ddcb066b8d9310f57029 = $(`<div id="html_70197eff19c0ddcb066b8d9310f57029" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #29 (B1021)</b><br>             <b>Date:</b> 2017-03-30<br>             <b>Payload Mass:</b> 5300.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_15582677977fed0828b99bce75462cd3.setContent(html_70197eff19c0ddcb066b8d9310f57029);
+            
+        
+
+        marker_aef8bf27a27db5a09148a904edc795f3.bindPopup(popup_15582677977fed0828b99bce75462cd3)
+        ;
+
+        
+    
+    
+            marker_aef8bf27a27db5a09148a904edc795f3.bindTooltip(
+                `<div>
+                     Flight #29: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_aef8bf27a27db5a09148a904edc795f3.setIcon(icon_3236c8386cd6b308329d8a78a766177c);
+            
+    
+            var marker_fb3ba036622a5041badae2e36db2b661 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_12df5360ecffff057e7902056384b3f0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_dc0b55b1a0690be64a2554f0b8ba806c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_34d3a447045de3f501538b07efa87523 = $(`<div id="html_34d3a447045de3f501538b07efa87523" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #30 (B1032)</b><br>             <b>Date:</b> 2017-05-01<br>             <b>Payload Mass:</b> 6105.0 kg<br>             <b>Orbit:</b> LEO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_dc0b55b1a0690be64a2554f0b8ba806c.setContent(html_34d3a447045de3f501538b07efa87523);
+            
+        
+
+        marker_fb3ba036622a5041badae2e36db2b661.bindPopup(popup_dc0b55b1a0690be64a2554f0b8ba806c)
+        ;
+
+        
+    
+    
+            marker_fb3ba036622a5041badae2e36db2b661.bindTooltip(
+                `<div>
+                     Flight #30: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fb3ba036622a5041badae2e36db2b661.setIcon(icon_12df5360ecffff057e7902056384b3f0);
+            
+    
+            var marker_191a7881d1d6ae67011a36fd9675477e = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_339d18b82e19ed7d0128c81ecba42fd3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_62a70335703be778eb3dd946dd46b28b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0051b11e7442f46ce149b6a369072684 = $(`<div id="html_0051b11e7442f46ce149b6a369072684" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #31 (B1034)</b><br>             <b>Date:</b> 2017-05-15<br>             <b>Payload Mass:</b> 6070.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_62a70335703be778eb3dd946dd46b28b.setContent(html_0051b11e7442f46ce149b6a369072684);
+            
+        
+
+        marker_191a7881d1d6ae67011a36fd9675477e.bindPopup(popup_62a70335703be778eb3dd946dd46b28b)
+        ;
+
+        
+    
+    
+            marker_191a7881d1d6ae67011a36fd9675477e.bindTooltip(
+                `<div>
+                     Flight #31: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_191a7881d1d6ae67011a36fd9675477e.setIcon(icon_339d18b82e19ed7d0128c81ecba42fd3);
+            
+    
+            var marker_5776cdb0f86e3783ac95c6f82777efd3 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_fc990ccd71c30342b4a9d525f2aa0dd0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4118561e4cb90a1081af827d0eb8dd21 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_00e387bf7b0945b96be13dfbacc7e9ff = $(`<div id="html_00e387bf7b0945b96be13dfbacc7e9ff" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #32 (B1035)</b><br>             <b>Date:</b> 2017-06-03<br>             <b>Payload Mass:</b> 2708.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_4118561e4cb90a1081af827d0eb8dd21.setContent(html_00e387bf7b0945b96be13dfbacc7e9ff);
+            
+        
+
+        marker_5776cdb0f86e3783ac95c6f82777efd3.bindPopup(popup_4118561e4cb90a1081af827d0eb8dd21)
+        ;
+
+        
+    
+    
+            marker_5776cdb0f86e3783ac95c6f82777efd3.bindTooltip(
+                `<div>
+                     Flight #32: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5776cdb0f86e3783ac95c6f82777efd3.setIcon(icon_fc990ccd71c30342b4a9d525f2aa0dd0);
+            
+    
+            var marker_1638e3ac3c7f99d11f4d3e358c4b9772 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_93ce47233fe5829045b25cdfc4c547fa = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6be77ed808fed0f21f86b06abb5a4a6b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9aa3b449bd0a20173090beac31d7e6dc = $(`<div id="html_9aa3b449bd0a20173090beac31d7e6dc" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #33 (B1029)</b><br>             <b>Date:</b> 2017-06-23<br>             <b>Payload Mass:</b> 3669.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_6be77ed808fed0f21f86b06abb5a4a6b.setContent(html_9aa3b449bd0a20173090beac31d7e6dc);
+            
+        
+
+        marker_1638e3ac3c7f99d11f4d3e358c4b9772.bindPopup(popup_6be77ed808fed0f21f86b06abb5a4a6b)
+        ;
+
+        
+    
+    
+            marker_1638e3ac3c7f99d11f4d3e358c4b9772.bindTooltip(
+                `<div>
+                     Flight #33: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1638e3ac3c7f99d11f4d3e358c4b9772.setIcon(icon_93ce47233fe5829045b25cdfc4c547fa);
+            
+    
+            var marker_978cfc244883ae7d70161e1058f8e4a3 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_6abfe87ff0fdea8e8177b699ea60cfa3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c79c89484eec4937cd19b87361d29464 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ef5797915a627f0c816fc3d4c2473c53 = $(`<div id="html_ef5797915a627f0c816fc3d4c2473c53" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #34 (B1036)</b><br>             <b>Date:</b> 2017-06-25<br>             <b>Payload Mass:</b> 9600.0 kg<br>             <b>Orbit:</b> PO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_c79c89484eec4937cd19b87361d29464.setContent(html_ef5797915a627f0c816fc3d4c2473c53);
+            
+        
+
+        marker_978cfc244883ae7d70161e1058f8e4a3.bindPopup(popup_c79c89484eec4937cd19b87361d29464)
+        ;
+
+        
+    
+    
+            marker_978cfc244883ae7d70161e1058f8e4a3.bindTooltip(
+                `<div>
+                     Flight #34: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_978cfc244883ae7d70161e1058f8e4a3.setIcon(icon_6abfe87ff0fdea8e8177b699ea60cfa3);
+            
+    
+            var marker_ca5b9f2346ea29a8610a03cde0044936 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_25fd468b83f51c4ca8a753fe7ac5427a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ceb41060ca207b8a7b19ec9f3d248cd9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5f276f029efcf13078a20115ccd75f02 = $(`<div id="html_5f276f029efcf13078a20115ccd75f02" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #35 (B1037)</b><br>             <b>Date:</b> 2017-07-05<br>             <b>Payload Mass:</b> 6761.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_ceb41060ca207b8a7b19ec9f3d248cd9.setContent(html_5f276f029efcf13078a20115ccd75f02);
+            
+        
+
+        marker_ca5b9f2346ea29a8610a03cde0044936.bindPopup(popup_ceb41060ca207b8a7b19ec9f3d248cd9)
+        ;
+
+        
+    
+    
+            marker_ca5b9f2346ea29a8610a03cde0044936.bindTooltip(
+                `<div>
+                     Flight #35: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ca5b9f2346ea29a8610a03cde0044936.setIcon(icon_25fd468b83f51c4ca8a753fe7ac5427a);
+            
+    
+            var marker_eb67e3ad9841afb6d8d5407352fc9121 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_7cd41b07a5917721c2c682ec081212e3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_178af3a46295c7fb7c1785cca8e0ec53 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7a46b8064af1e324fca486f4d6209428 = $(`<div id="html_7a46b8064af1e324fca486f4d6209428" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #36 (B1039)</b><br>             <b>Date:</b> 2017-08-14<br>             <b>Payload Mass:</b> 2910.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_178af3a46295c7fb7c1785cca8e0ec53.setContent(html_7a46b8064af1e324fca486f4d6209428);
+            
+        
+
+        marker_eb67e3ad9841afb6d8d5407352fc9121.bindPopup(popup_178af3a46295c7fb7c1785cca8e0ec53)
+        ;
+
+        
+    
+    
+            marker_eb67e3ad9841afb6d8d5407352fc9121.bindTooltip(
+                `<div>
+                     Flight #36: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_eb67e3ad9841afb6d8d5407352fc9121.setIcon(icon_7cd41b07a5917721c2c682ec081212e3);
+            
+    
+            var marker_a9a0e4eac6d2f6acc0db4460d6bfa627 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_bd54a49cbe418e09ea80023a1c5f8c50 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6bb4e81e694f9c11385aee7e295f2117 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9f14f73d18431276fd4f60db29779a9c = $(`<div id="html_9f14f73d18431276fd4f60db29779a9c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #37 (B1038)</b><br>             <b>Date:</b> 2017-08-24<br>             <b>Payload Mass:</b> 475.0 kg<br>             <b>Orbit:</b> SSO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_6bb4e81e694f9c11385aee7e295f2117.setContent(html_9f14f73d18431276fd4f60db29779a9c);
+            
+        
+
+        marker_a9a0e4eac6d2f6acc0db4460d6bfa627.bindPopup(popup_6bb4e81e694f9c11385aee7e295f2117)
+        ;
+
+        
+    
+    
+            marker_a9a0e4eac6d2f6acc0db4460d6bfa627.bindTooltip(
+                `<div>
+                     Flight #37: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a9a0e4eac6d2f6acc0db4460d6bfa627.setIcon(icon_bd54a49cbe418e09ea80023a1c5f8c50);
+            
+    
+            var marker_b04e19c4beb1373076bf7136e08428fb = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_9f82ec625ac0c267dc5f6d1c783bdc90 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4087c27def8662a22f5e2e3ecb264a1b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ab04ea30c51da14c15093e138a11b5b7 = $(`<div id="html_ab04ea30c51da14c15093e138a11b5b7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #38 (B1040)</b><br>             <b>Date:</b> 2017-09-07<br>             <b>Payload Mass:</b> 4990.0 kg<br>             <b>Orbit:</b> LEO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_4087c27def8662a22f5e2e3ecb264a1b.setContent(html_ab04ea30c51da14c15093e138a11b5b7);
+            
+        
+
+        marker_b04e19c4beb1373076bf7136e08428fb.bindPopup(popup_4087c27def8662a22f5e2e3ecb264a1b)
+        ;
+
+        
+    
+    
+            marker_b04e19c4beb1373076bf7136e08428fb.bindTooltip(
+                `<div>
+                     Flight #38: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b04e19c4beb1373076bf7136e08428fb.setIcon(icon_9f82ec625ac0c267dc5f6d1c783bdc90);
+            
+    
+            var marker_899b289b3bb3eb565334c6bbfb806e3d = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_7b000b00e369d3e65856b82e0b696382 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fe55656e30bd35b3ee44e3fd9ed9a8b8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1725b54ff42b1deab3fb19a29a49e4de = $(`<div id="html_1725b54ff42b1deab3fb19a29a49e4de" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #39 (B1041)</b><br>             <b>Date:</b> 2017-10-09<br>             <b>Payload Mass:</b> 9600.0 kg<br>             <b>Orbit:</b> PO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_fe55656e30bd35b3ee44e3fd9ed9a8b8.setContent(html_1725b54ff42b1deab3fb19a29a49e4de);
+            
+        
+
+        marker_899b289b3bb3eb565334c6bbfb806e3d.bindPopup(popup_fe55656e30bd35b3ee44e3fd9ed9a8b8)
+        ;
+
+        
+    
+    
+            marker_899b289b3bb3eb565334c6bbfb806e3d.bindTooltip(
+                `<div>
+                     Flight #39: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_899b289b3bb3eb565334c6bbfb806e3d.setIcon(icon_7b000b00e369d3e65856b82e0b696382);
+            
+    
+            var marker_af8297bc950bab89a274a712a45fc00d = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_685284e14ee2b3873d5ed90fe7693622 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9b2b5ee3fcddc8de2d5b392b4e08c6de = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_42cfef2978cd663ca2ba0e4bb093210c = $(`<div id="html_42cfef2978cd663ca2ba0e4bb093210c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #40 (B1031)</b><br>             <b>Date:</b> 2017-10-11<br>             <b>Payload Mass:</b> 5200.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_9b2b5ee3fcddc8de2d5b392b4e08c6de.setContent(html_42cfef2978cd663ca2ba0e4bb093210c);
+            
+        
+
+        marker_af8297bc950bab89a274a712a45fc00d.bindPopup(popup_9b2b5ee3fcddc8de2d5b392b4e08c6de)
+        ;
+
+        
+    
+    
+            marker_af8297bc950bab89a274a712a45fc00d.bindTooltip(
+                `<div>
+                     Flight #40: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_af8297bc950bab89a274a712a45fc00d.setIcon(icon_685284e14ee2b3873d5ed90fe7693622);
+            
+    
+            var marker_f890e7f12e540306d95db1b6bbab6945 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_e092e9f1b4d48788ae2021bae9b0ceb8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c25a6e852e874b19696824bcf0c0824a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_564114ddeab30244ebb0f786f734f6c5 = $(`<div id="html_564114ddeab30244ebb0f786f734f6c5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #41 (B1042)</b><br>             <b>Date:</b> 2017-10-30<br>             <b>Payload Mass:</b> 3700.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_c25a6e852e874b19696824bcf0c0824a.setContent(html_564114ddeab30244ebb0f786f734f6c5);
+            
+        
+
+        marker_f890e7f12e540306d95db1b6bbab6945.bindPopup(popup_c25a6e852e874b19696824bcf0c0824a)
+        ;
+
+        
+    
+    
+            marker_f890e7f12e540306d95db1b6bbab6945.bindTooltip(
+                `<div>
+                     Flight #41: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f890e7f12e540306d95db1b6bbab6945.setIcon(icon_e092e9f1b4d48788ae2021bae9b0ceb8);
+            
+    
+            var marker_126bab1284cb63b21648b89155ff2528 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_85cb782d0283e9923be3674c18c2f450 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_869b8c60ee4d74b91c0799907fadb409 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e0cb9668bdbc3f2ac4fef98afb2bc1c3 = $(`<div id="html_e0cb9668bdbc3f2ac4fef98afb2bc1c3" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #42 (B1035)</b><br>             <b>Date:</b> 2017-12-15<br>             <b>Payload Mass:</b> 2205.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_869b8c60ee4d74b91c0799907fadb409.setContent(html_e0cb9668bdbc3f2ac4fef98afb2bc1c3);
+            
+        
+
+        marker_126bab1284cb63b21648b89155ff2528.bindPopup(popup_869b8c60ee4d74b91c0799907fadb409)
+        ;
+
+        
+    
+    
+            marker_126bab1284cb63b21648b89155ff2528.bindTooltip(
+                `<div>
+                     Flight #42: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_126bab1284cb63b21648b89155ff2528.setIcon(icon_85cb782d0283e9923be3674c18c2f450);
+            
+    
+            var marker_8602df744452506ffce4418e462bdf12 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_62aa8665b7c8f97c0c108266e5a698f4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_704c52dd40af2d62f5eb975ae109c054 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4becf64c82ee05291ea42744d65c8a32 = $(`<div id="html_4becf64c82ee05291ea42744d65c8a32" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #43 (B1036)</b><br>             <b>Date:</b> 2017-12-23<br>             <b>Payload Mass:</b> 9600.0 kg<br>             <b>Orbit:</b> PO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True Ocean (Successful Landing)         </div>         </div>`)[0];
+                popup_704c52dd40af2d62f5eb975ae109c054.setContent(html_4becf64c82ee05291ea42744d65c8a32);
+            
+        
+
+        marker_8602df744452506ffce4418e462bdf12.bindPopup(popup_704c52dd40af2d62f5eb975ae109c054)
+        ;
+
+        
+    
+    
+            marker_8602df744452506ffce4418e462bdf12.bindTooltip(
+                `<div>
+                     Flight #43: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8602df744452506ffce4418e462bdf12.setIcon(icon_62aa8665b7c8f97c0c108266e5a698f4);
+            
+    
+            var marker_d557879b7095c8e67974dbf818dcd7fa = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_cd213ddb667fa467d8e48b49378820d5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_b0260507393c690a6abdb843eee72d4f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_6a5ee7196d1ead7068d712c9dc03533f = $(`<div id="html_6a5ee7196d1ead7068d712c9dc03533f" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #44 (B1043)</b><br>             <b>Date:</b> 2018-01-08<br>             <b>Payload Mass:</b> 6105.0 kg<br>             <b>Orbit:</b> LEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_b0260507393c690a6abdb843eee72d4f.setContent(html_6a5ee7196d1ead7068d712c9dc03533f);
+            
+        
+
+        marker_d557879b7095c8e67974dbf818dcd7fa.bindPopup(popup_b0260507393c690a6abdb843eee72d4f)
+        ;
+
+        
+    
+    
+            marker_d557879b7095c8e67974dbf818dcd7fa.bindTooltip(
+                `<div>
+                     Flight #44: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d557879b7095c8e67974dbf818dcd7fa.setIcon(icon_cd213ddb667fa467d8e48b49378820d5);
+            
+    
+            var marker_fddf03dc8fead9a14108b0414d0039fb = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_c05296cbc17da3d20c077e2259347460 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a18880646a96d2d696c7ffd137ccb16b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_78e92ef5ed23b68816475c5378bcd705 = $(`<div id="html_78e92ef5ed23b68816475c5378bcd705" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #45 (B1032)</b><br>             <b>Date:</b> 2018-01-31<br>             <b>Payload Mass:</b> 4230.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True Ocean (Successful Landing)         </div>         </div>`)[0];
+                popup_a18880646a96d2d696c7ffd137ccb16b.setContent(html_78e92ef5ed23b68816475c5378bcd705);
+            
+        
+
+        marker_fddf03dc8fead9a14108b0414d0039fb.bindPopup(popup_a18880646a96d2d696c7ffd137ccb16b)
+        ;
+
+        
+    
+    
+            marker_fddf03dc8fead9a14108b0414d0039fb.bindTooltip(
+                `<div>
+                     Flight #45: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fddf03dc8fead9a14108b0414d0039fb.setIcon(icon_c05296cbc17da3d20c077e2259347460);
+            
+    
+            var marker_107c66fd89adce4003e12032d08b5a37 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_699ad2cc73f4b5dc7aa79485bc54a11c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4165c56477543a828e424666333ff9b1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8986a53203be5ab124277c8c55798bc5 = $(`<div id="html_8986a53203be5ab124277c8c55798bc5" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #46 (B1044)</b><br>             <b>Date:</b> 2018-03-06<br>             <b>Payload Mass:</b> 6092.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_4165c56477543a828e424666333ff9b1.setContent(html_8986a53203be5ab124277c8c55798bc5);
+            
+        
+
+        marker_107c66fd89adce4003e12032d08b5a37.bindPopup(popup_4165c56477543a828e424666333ff9b1)
+        ;
+
+        
+    
+    
+            marker_107c66fd89adce4003e12032d08b5a37.bindTooltip(
+                `<div>
+                     Flight #46: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_107c66fd89adce4003e12032d08b5a37.setIcon(icon_699ad2cc73f4b5dc7aa79485bc54a11c);
+            
+    
+            var marker_1e2d5f59dd6a6ef6f1f41f5267e8be3c = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_65064cd38c2977e0eecf5f70be74c94e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e1ba3633970879b774c9f434664164bf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_de1cfb85d37b94dff304c1abcf477f72 = $(`<div id="html_de1cfb85d37b94dff304c1abcf477f72" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #47 (B1041)</b><br>             <b>Date:</b> 2018-03-30<br>             <b>Payload Mass:</b> 9600.0 kg<br>             <b>Orbit:</b> PO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_e1ba3633970879b774c9f434664164bf.setContent(html_de1cfb85d37b94dff304c1abcf477f72);
+            
+        
+
+        marker_1e2d5f59dd6a6ef6f1f41f5267e8be3c.bindPopup(popup_e1ba3633970879b774c9f434664164bf)
+        ;
+
+        
+    
+    
+            marker_1e2d5f59dd6a6ef6f1f41f5267e8be3c.bindTooltip(
+                `<div>
+                     Flight #47: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1e2d5f59dd6a6ef6f1f41f5267e8be3c.setIcon(icon_65064cd38c2977e0eecf5f70be74c94e);
+            
+    
+            var marker_ff6eaefabc0d63fa83b2cb220db6f15f = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_891bed0d042ca3a88eed8b889ea389ba = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4889995253d0168a1925a105f7b27f64 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c858a908bf2762ef67f0bd4fd1bf5441 = $(`<div id="html_c858a908bf2762ef67f0bd4fd1bf5441" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #48 (B1039)</b><br>             <b>Date:</b> 2018-04-02<br>             <b>Payload Mass:</b> 2760.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_4889995253d0168a1925a105f7b27f64.setContent(html_c858a908bf2762ef67f0bd4fd1bf5441);
+            
+        
+
+        marker_ff6eaefabc0d63fa83b2cb220db6f15f.bindPopup(popup_4889995253d0168a1925a105f7b27f64)
+        ;
+
+        
+    
+    
+            marker_ff6eaefabc0d63fa83b2cb220db6f15f.bindTooltip(
+                `<div>
+                     Flight #48: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ff6eaefabc0d63fa83b2cb220db6f15f.setIcon(icon_891bed0d042ca3a88eed8b889ea389ba);
+            
+    
+            var marker_e6e60271c6c67a1542e05668086d0e47 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_74d1888b13ab27900e9099f29062bb69 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4b21f7903462c30032312b7a65dd9608 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_0fe48a54119489074bdaafe3affb9242 = $(`<div id="html_0fe48a54119489074bdaafe3affb9242" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #49 (B1045)</b><br>             <b>Date:</b> 2018-04-18<br>             <b>Payload Mass:</b> 350.0 kg<br>             <b>Orbit:</b> HEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_4b21f7903462c30032312b7a65dd9608.setContent(html_0fe48a54119489074bdaafe3affb9242);
+            
+        
+
+        marker_e6e60271c6c67a1542e05668086d0e47.bindPopup(popup_4b21f7903462c30032312b7a65dd9608)
+        ;
+
+        
+    
+    
+            marker_e6e60271c6c67a1542e05668086d0e47.bindTooltip(
+                `<div>
+                     Flight #49: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e6e60271c6c67a1542e05668086d0e47.setIcon(icon_74d1888b13ab27900e9099f29062bb69);
+            
+    
+            var marker_7d9ec334769eeed29056cb73980c753c = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_ce185283afd9d7c05a27a1298a2a9726 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_295656bbbcebb570fbc769c1f9f27c55 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_48ce292b8c62faeee8a27d56e37197bd = $(`<div id="html_48ce292b8c62faeee8a27d56e37197bd" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #50 (B1046)</b><br>             <b>Date:</b> 2018-05-11<br>             <b>Payload Mass:</b> 3750.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_295656bbbcebb570fbc769c1f9f27c55.setContent(html_48ce292b8c62faeee8a27d56e37197bd);
+            
+        
+
+        marker_7d9ec334769eeed29056cb73980c753c.bindPopup(popup_295656bbbcebb570fbc769c1f9f27c55)
+        ;
+
+        
+    
+    
+            marker_7d9ec334769eeed29056cb73980c753c.bindTooltip(
+                `<div>
+                     Flight #50: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7d9ec334769eeed29056cb73980c753c.setIcon(icon_ce185283afd9d7c05a27a1298a2a9726);
+            
+    
+            var marker_6dba5adb77a613136999c0db9fe38357 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_1005c0fe5bc208f5d95a637b89cd66b2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_423c1dee05b4fb902f2adae03490a784 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c88eda35fbb3db809e47cbedd2d0d5a9 = $(`<div id="html_c88eda35fbb3db809e47cbedd2d0d5a9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #51 (B1040)</b><br>             <b>Date:</b> 2018-06-04<br>             <b>Payload Mass:</b> 5383.9 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_423c1dee05b4fb902f2adae03490a784.setContent(html_c88eda35fbb3db809e47cbedd2d0d5a9);
+            
+        
+
+        marker_6dba5adb77a613136999c0db9fe38357.bindPopup(popup_423c1dee05b4fb902f2adae03490a784)
+        ;
+
+        
+    
+    
+            marker_6dba5adb77a613136999c0db9fe38357.bindTooltip(
+                `<div>
+                     Flight #51: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6dba5adb77a613136999c0db9fe38357.setIcon(icon_1005c0fe5bc208f5d95a637b89cd66b2);
+            
+    
+            var marker_8d913f8e5190ecad4916202c0359bd2c = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_fce5beedda8ba17f3186148060968083 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2f1fb3ae524c5e27f97ab343198be596 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9650a250be5a8f686608db89fea4097e = $(`<div id="html_9650a250be5a8f686608db89fea4097e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #52 (B1045)</b><br>             <b>Date:</b> 2018-06-29<br>             <b>Payload Mass:</b> 2410.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_2f1fb3ae524c5e27f97ab343198be596.setContent(html_9650a250be5a8f686608db89fea4097e);
+            
+        
+
+        marker_8d913f8e5190ecad4916202c0359bd2c.bindPopup(popup_2f1fb3ae524c5e27f97ab343198be596)
+        ;
+
+        
+    
+    
+            marker_8d913f8e5190ecad4916202c0359bd2c.bindTooltip(
+                `<div>
+                     Flight #52: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8d913f8e5190ecad4916202c0359bd2c.setIcon(icon_fce5beedda8ba17f3186148060968083);
+            
+    
+            var marker_e7852404adeec2088ff5f5331c54c25d = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_bc46b7cd1ed9da10cd94fc1987e7dd50 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f8da5fa2fcde3afbe2befa2cbfc03e4c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_86c952c977a6b860b4f2e84684254e06 = $(`<div id="html_86c952c977a6b860b4f2e84684254e06" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #53 (B1047)</b><br>             <b>Date:</b> 2018-07-22<br>             <b>Payload Mass:</b> 7076.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_f8da5fa2fcde3afbe2befa2cbfc03e4c.setContent(html_86c952c977a6b860b4f2e84684254e06);
+            
+        
+
+        marker_e7852404adeec2088ff5f5331c54c25d.bindPopup(popup_f8da5fa2fcde3afbe2befa2cbfc03e4c)
+        ;
+
+        
+    
+    
+            marker_e7852404adeec2088ff5f5331c54c25d.bindTooltip(
+                `<div>
+                     Flight #53: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e7852404adeec2088ff5f5331c54c25d.setIcon(icon_bc46b7cd1ed9da10cd94fc1987e7dd50);
+            
+    
+            var marker_e6557920f9f69eaee4be7918eb8a61ac = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_b2f1ce0d067ff786ae9bd24e34bfea2d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_098347329b94951ef7a8e1b3ef6d29a5 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_b7ec45265fb52282664e0bf42f0cff54 = $(`<div id="html_b7ec45265fb52282664e0bf42f0cff54" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #54 (B1048)</b><br>             <b>Date:</b> 2018-07-25<br>             <b>Payload Mass:</b> 9600.0 kg<br>             <b>Orbit:</b> PO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_098347329b94951ef7a8e1b3ef6d29a5.setContent(html_b7ec45265fb52282664e0bf42f0cff54);
+            
+        
+
+        marker_e6557920f9f69eaee4be7918eb8a61ac.bindPopup(popup_098347329b94951ef7a8e1b3ef6d29a5)
+        ;
+
+        
+    
+    
+            marker_e6557920f9f69eaee4be7918eb8a61ac.bindTooltip(
+                `<div>
+                     Flight #54: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e6557920f9f69eaee4be7918eb8a61ac.setIcon(icon_b2f1ce0d067ff786ae9bd24e34bfea2d);
+            
+    
+            var marker_f9b0a6d3e8c4e24a419d34da92bed32f = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_f20421390d70e47a3e26a320a4f210fc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_00095951602b9485489146e78e694a2c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e495b3d8ba9d0d9690e552b6e5b4bdac = $(`<div id="html_e495b3d8ba9d0d9690e552b6e5b4bdac" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #55 (B1046)</b><br>             <b>Date:</b> 2018-08-07<br>             <b>Payload Mass:</b> 5800.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_00095951602b9485489146e78e694a2c.setContent(html_e495b3d8ba9d0d9690e552b6e5b4bdac);
+            
+        
+
+        marker_f9b0a6d3e8c4e24a419d34da92bed32f.bindPopup(popup_00095951602b9485489146e78e694a2c)
+        ;
+
+        
+    
+    
+            marker_f9b0a6d3e8c4e24a419d34da92bed32f.bindTooltip(
+                `<div>
+                     Flight #55: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f9b0a6d3e8c4e24a419d34da92bed32f.setIcon(icon_f20421390d70e47a3e26a320a4f210fc);
+            
+    
+            var marker_4bd14c4d35c112496cff829b741ef7a6 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_5a15cfdfd46021d76af85303e9a7588e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7a673e92faa63d0e3452045e40f642d4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fa017452643664965dfef6e9faeff4a4 = $(`<div id="html_fa017452643664965dfef6e9faeff4a4" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #56 (B1049)</b><br>             <b>Date:</b> 2018-09-10<br>             <b>Payload Mass:</b> 7060.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_7a673e92faa63d0e3452045e40f642d4.setContent(html_fa017452643664965dfef6e9faeff4a4);
+            
+        
+
+        marker_4bd14c4d35c112496cff829b741ef7a6.bindPopup(popup_7a673e92faa63d0e3452045e40f642d4)
+        ;
+
+        
+    
+    
+            marker_4bd14c4d35c112496cff829b741ef7a6.bindTooltip(
+                `<div>
+                     Flight #56: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4bd14c4d35c112496cff829b741ef7a6.setIcon(icon_5a15cfdfd46021d76af85303e9a7588e);
+            
+    
+            var marker_4e395a979ea09c05e6e3da4d321fde43 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_6d0c30bc6f41e69859f576705f6bfc1a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_607546578d7b7905d98afec4024d35e7 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a40dac6aa201a8e0d3359352cabb4818 = $(`<div id="html_a40dac6aa201a8e0d3359352cabb4818" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #57 (B1048)</b><br>             <b>Date:</b> 2018-10-08<br>             <b>Payload Mass:</b> 2800.0 kg<br>             <b>Orbit:</b> SSO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_607546578d7b7905d98afec4024d35e7.setContent(html_a40dac6aa201a8e0d3359352cabb4818);
+            
+        
+
+        marker_4e395a979ea09c05e6e3da4d321fde43.bindPopup(popup_607546578d7b7905d98afec4024d35e7)
+        ;
+
+        
+    
+    
+            marker_4e395a979ea09c05e6e3da4d321fde43.bindTooltip(
+                `<div>
+                     Flight #57: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4e395a979ea09c05e6e3da4d321fde43.setIcon(icon_6d0c30bc6f41e69859f576705f6bfc1a);
+            
+    
+            var marker_41215a9cf4940cec6e9d2aba8838a5ee = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_33334694eed3813f4c384f57dea76600 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_fe31a7eca93517252faf6397dc5c3b76 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_20352b0393ee3d7ab14ee34a0e8b470e = $(`<div id="html_20352b0393ee3d7ab14ee34a0e8b470e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #58 (B1047)</b><br>             <b>Date:</b> 2018-11-15<br>             <b>Payload Mass:</b> 3000.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_fe31a7eca93517252faf6397dc5c3b76.setContent(html_20352b0393ee3d7ab14ee34a0e8b470e);
+            
+        
+
+        marker_41215a9cf4940cec6e9d2aba8838a5ee.bindPopup(popup_fe31a7eca93517252faf6397dc5c3b76)
+        ;
+
+        
+    
+    
+            marker_41215a9cf4940cec6e9d2aba8838a5ee.bindTooltip(
+                `<div>
+                     Flight #58: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_41215a9cf4940cec6e9d2aba8838a5ee.setIcon(icon_33334694eed3813f4c384f57dea76600);
+            
+    
+            var marker_2c084680438678affeacb0c39e8f2616 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_bb5d3f4998bb2e174667308fa74865e5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_50fcdff391b66958b0cfe5b3b6aaed11 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a3561f33ec6f8255f3776f21a94f9014 = $(`<div id="html_a3561f33ec6f8255f3776f21a94f9014" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #59 (B1046)</b><br>             <b>Date:</b> 2018-12-03<br>             <b>Payload Mass:</b> 4000.0 kg<br>             <b>Orbit:</b> SSO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_50fcdff391b66958b0cfe5b3b6aaed11.setContent(html_a3561f33ec6f8255f3776f21a94f9014);
+            
+        
+
+        marker_2c084680438678affeacb0c39e8f2616.bindPopup(popup_50fcdff391b66958b0cfe5b3b6aaed11)
+        ;
+
+        
+    
+    
+            marker_2c084680438678affeacb0c39e8f2616.bindTooltip(
+                `<div>
+                     Flight #59: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2c084680438678affeacb0c39e8f2616.setIcon(icon_bb5d3f4998bb2e174667308fa74865e5);
+            
+    
+            var marker_a71de896305f51fd6639f71aea9412a7 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_4e0a4da8996f8ad111b65f0f7cf737fe = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ad9a87c18ca42af460c6a7411cd4ac56 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ac193249ba412ee8e64d63435062c67e = $(`<div id="html_ac193249ba412ee8e64d63435062c67e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #60 (B1050)</b><br>             <b>Date:</b> 2018-12-05<br>             <b>Payload Mass:</b> 2573.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> False RTLS (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_ad9a87c18ca42af460c6a7411cd4ac56.setContent(html_ac193249ba412ee8e64d63435062c67e);
+            
+        
+
+        marker_a71de896305f51fd6639f71aea9412a7.bindPopup(popup_ad9a87c18ca42af460c6a7411cd4ac56)
+        ;
+
+        
+    
+    
+            marker_a71de896305f51fd6639f71aea9412a7.bindTooltip(
+                `<div>
+                     Flight #60: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a71de896305f51fd6639f71aea9412a7.setIcon(icon_4e0a4da8996f8ad111b65f0f7cf737fe);
+            
+    
+            var marker_74e3bc5aeca64b081ab7d5b3ea00c808 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_0dec392c0fdfc39a5cb47d1ac0a312e8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_035644f37f9b9430b8fe2db7bd19c122 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ed0feee2e2f69b2869b560255ff7a5ff = $(`<div id="html_ed0feee2e2f69b2869b560255ff7a5ff" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #61 (B1054)</b><br>             <b>Date:</b> 2018-12-23<br>             <b>Payload Mass:</b> 4400.0 kg<br>             <b>Orbit:</b> MEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_035644f37f9b9430b8fe2db7bd19c122.setContent(html_ed0feee2e2f69b2869b560255ff7a5ff);
+            
+        
+
+        marker_74e3bc5aeca64b081ab7d5b3ea00c808.bindPopup(popup_035644f37f9b9430b8fe2db7bd19c122)
+        ;
+
+        
+    
+    
+            marker_74e3bc5aeca64b081ab7d5b3ea00c808.bindTooltip(
+                `<div>
+                     Flight #61: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_74e3bc5aeca64b081ab7d5b3ea00c808.setIcon(icon_0dec392c0fdfc39a5cb47d1ac0a312e8);
+            
+    
+            var marker_60df31288470cf3c6f98104754872127 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_3d411cb8adf6fba530c4cac95345160c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4e928e6d7392f13ce1449c9e3184c559 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_925834fbb9e10029089121ab6c83faa2 = $(`<div id="html_925834fbb9e10029089121ab6c83faa2" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #62 (B1049)</b><br>             <b>Date:</b> 2019-01-11<br>             <b>Payload Mass:</b> 9600.0 kg<br>             <b>Orbit:</b> PO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_4e928e6d7392f13ce1449c9e3184c559.setContent(html_925834fbb9e10029089121ab6c83faa2);
+            
+        
+
+        marker_60df31288470cf3c6f98104754872127.bindPopup(popup_4e928e6d7392f13ce1449c9e3184c559)
+        ;
+
+        
+    
+    
+            marker_60df31288470cf3c6f98104754872127.bindTooltip(
+                `<div>
+                     Flight #62: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_60df31288470cf3c6f98104754872127.setIcon(icon_3d411cb8adf6fba530c4cac95345160c);
+            
+    
+            var marker_c0c1710185befac5802925e1c51a8d7b = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_1c3e12f4b3734d7ed6f3454d4b197dba = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_778da51664b6c834cbbf3b161fdd0aec = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ea2f1755291310690adc2a7f464426b9 = $(`<div id="html_ea2f1755291310690adc2a7f464426b9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #63 (B1051)</b><br>             <b>Date:</b> 2019-03-02<br>             <b>Payload Mass:</b> 12259.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_778da51664b6c834cbbf3b161fdd0aec.setContent(html_ea2f1755291310690adc2a7f464426b9);
+            
+        
+
+        marker_c0c1710185befac5802925e1c51a8d7b.bindPopup(popup_778da51664b6c834cbbf3b161fdd0aec)
+        ;
+
+        
+    
+    
+            marker_c0c1710185befac5802925e1c51a8d7b.bindTooltip(
+                `<div>
+                     Flight #63: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c0c1710185befac5802925e1c51a8d7b.setIcon(icon_1c3e12f4b3734d7ed6f3454d4b197dba);
+            
+    
+            var marker_d679bfe49ae3a91a415e18dc1ee90b39 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_9d1ac070936a369d7bfc424e3084e59c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9ab117fad570e07184c333520545f7fc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_2fd4794fb5dab47ad41450a27dc10e58 = $(`<div id="html_2fd4794fb5dab47ad41450a27dc10e58" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #64 (B1056)</b><br>             <b>Date:</b> 2019-05-04<br>             <b>Payload Mass:</b> 2482.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_9ab117fad570e07184c333520545f7fc.setContent(html_2fd4794fb5dab47ad41450a27dc10e58);
+            
+        
+
+        marker_d679bfe49ae3a91a415e18dc1ee90b39.bindPopup(popup_9ab117fad570e07184c333520545f7fc)
+        ;
+
+        
+    
+    
+            marker_d679bfe49ae3a91a415e18dc1ee90b39.bindTooltip(
+                `<div>
+                     Flight #64: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d679bfe49ae3a91a415e18dc1ee90b39.setIcon(icon_9d1ac070936a369d7bfc424e3084e59c);
+            
+    
+            var marker_678345d514b938f477fc653c7046d14d = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_00e6841ebc5d82cfc9212f1162853b02 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_001f4ed717310d9308d3efc01c81ae5d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c47baafd9ac79e015d4915ebe28dafe1 = $(`<div id="html_c47baafd9ac79e015d4915ebe28dafe1" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #65 (B1049)</b><br>             <b>Date:</b> 2019-05-24<br>             <b>Payload Mass:</b> 13620.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_001f4ed717310d9308d3efc01c81ae5d.setContent(html_c47baafd9ac79e015d4915ebe28dafe1);
+            
+        
+
+        marker_678345d514b938f477fc653c7046d14d.bindPopup(popup_001f4ed717310d9308d3efc01c81ae5d)
+        ;
+
+        
+    
+    
+            marker_678345d514b938f477fc653c7046d14d.bindTooltip(
+                `<div>
+                     Flight #65: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_678345d514b938f477fc653c7046d14d.setIcon(icon_00e6841ebc5d82cfc9212f1162853b02);
+            
+    
+            var marker_8c832315c61cd4a8f79fd6ec1f299684 = L.marker(
+                [34.632834, -120.610745],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_55fbbb04ce1a7bcf218e613924efcaad = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_7648c3e345d6f1c1504ea13b9339be47 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d680e2938369679c9c37c41cece5846c = $(`<div id="html_d680e2938369679c9c37c41cece5846c" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #66 (B1051)</b><br>             <b>Date:</b> 2019-06-12<br>             <b>Payload Mass:</b> 1425.0 kg<br>             <b>Orbit:</b> SSO<br>             <b>Site:</b> VAFB SLC 4E<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_7648c3e345d6f1c1504ea13b9339be47.setContent(html_d680e2938369679c9c37c41cece5846c);
+            
+        
+
+        marker_8c832315c61cd4a8f79fd6ec1f299684.bindPopup(popup_7648c3e345d6f1c1504ea13b9339be47)
+        ;
+
+        
+    
+    
+            marker_8c832315c61cd4a8f79fd6ec1f299684.bindTooltip(
+                `<div>
+                     Flight #66: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8c832315c61cd4a8f79fd6ec1f299684.setIcon(icon_55fbbb04ce1a7bcf218e613924efcaad);
+            
+    
+            var marker_e863e25bf426a92caf65318d64c95772 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_709ef715133bd116dd659eaed0d63301 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_aa6cde084d841336a85c09b6edc0f50a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_d57ac0936e88ec7dc420b03ecb50112e = $(`<div id="html_d57ac0936e88ec7dc420b03ecb50112e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #67 (B1056)</b><br>             <b>Date:</b> 2019-07-25<br>             <b>Payload Mass:</b> 2227.7 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_aa6cde084d841336a85c09b6edc0f50a.setContent(html_d57ac0936e88ec7dc420b03ecb50112e);
+            
+        
+
+        marker_e863e25bf426a92caf65318d64c95772.bindPopup(popup_aa6cde084d841336a85c09b6edc0f50a)
+        ;
+
+        
+    
+    
+            marker_e863e25bf426a92caf65318d64c95772.bindTooltip(
+                `<div>
+                     Flight #67: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e863e25bf426a92caf65318d64c95772.setIcon(icon_709ef715133bd116dd659eaed0d63301);
+            
+    
+            var marker_f92ba53abe3fd44d4ec064a6fbde9bda = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_44ce044da136b24c603b326c2d310d48 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_457f05b3d231f845bf26ff5cd757d997 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_960c4931ac7c5cbf23ab4a4b9673a915 = $(`<div id="html_960c4931ac7c5cbf23ab4a4b9673a915" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #68 (B1047)</b><br>             <b>Date:</b> 2019-08-06<br>             <b>Payload Mass:</b> 6500.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_457f05b3d231f845bf26ff5cd757d997.setContent(html_960c4931ac7c5cbf23ab4a4b9673a915);
+            
+        
+
+        marker_f92ba53abe3fd44d4ec064a6fbde9bda.bindPopup(popup_457f05b3d231f845bf26ff5cd757d997)
+        ;
+
+        
+    
+    
+            marker_f92ba53abe3fd44d4ec064a6fbde9bda.bindTooltip(
+                `<div>
+                     Flight #68: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f92ba53abe3fd44d4ec064a6fbde9bda.setIcon(icon_44ce044da136b24c603b326c2d310d48);
+            
+    
+            var marker_e69b55ecad0b8efdec87f9e6bee4e0b1 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_e28961d84ccf89614c9460e57da6e80b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4e8a00297476213ed11f56ab09cacd7c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_a76fbaf868f612d1d2f385dad9d6c9f0 = $(`<div id="html_a76fbaf868f612d1d2f385dad9d6c9f0" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #69 (B1048)</b><br>             <b>Date:</b> 2019-11-11<br>             <b>Payload Mass:</b> 15600.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_4e8a00297476213ed11f56ab09cacd7c.setContent(html_a76fbaf868f612d1d2f385dad9d6c9f0);
+            
+        
+
+        marker_e69b55ecad0b8efdec87f9e6bee4e0b1.bindPopup(popup_4e8a00297476213ed11f56ab09cacd7c)
+        ;
+
+        
+    
+    
+            marker_e69b55ecad0b8efdec87f9e6bee4e0b1.bindTooltip(
+                `<div>
+                     Flight #69: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e69b55ecad0b8efdec87f9e6bee4e0b1.setIcon(icon_e28961d84ccf89614c9460e57da6e80b);
+            
+    
+            var marker_aa69fa99a35a382dbfb26c221871cc34 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_9fc750dc56acd33e2de1d3f1996c29c9 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8d2f583e086b3e2c348ecc3f83cca6bf = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ffbd1ba5599658e05d6d477b8817ab09 = $(`<div id="html_ffbd1ba5599658e05d6d477b8817ab09" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #70 (B1059)</b><br>             <b>Date:</b> 2019-12-05<br>             <b>Payload Mass:</b> 5000.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_8d2f583e086b3e2c348ecc3f83cca6bf.setContent(html_ffbd1ba5599658e05d6d477b8817ab09);
+            
+        
+
+        marker_aa69fa99a35a382dbfb26c221871cc34.bindPopup(popup_8d2f583e086b3e2c348ecc3f83cca6bf)
+        ;
+
+        
+    
+    
+            marker_aa69fa99a35a382dbfb26c221871cc34.bindTooltip(
+                `<div>
+                     Flight #70: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_aa69fa99a35a382dbfb26c221871cc34.setIcon(icon_9fc750dc56acd33e2de1d3f1996c29c9);
+            
+    
+            var marker_271beadab85425cf6be34b29fe51ba85 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_37d1e65d1024a12a9690ee36bdc08fa5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1539800d8e305e626ef38bbe68db5a7d = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_23826ceac018655bb55fe1a948a16e38 = $(`<div id="html_23826ceac018655bb55fe1a948a16e38" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #71 (B1056)</b><br>             <b>Date:</b> 2019-12-17<br>             <b>Payload Mass:</b> 6800.0 kg<br>             <b>Orbit:</b> GTO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_1539800d8e305e626ef38bbe68db5a7d.setContent(html_23826ceac018655bb55fe1a948a16e38);
+            
+        
+
+        marker_271beadab85425cf6be34b29fe51ba85.bindPopup(popup_1539800d8e305e626ef38bbe68db5a7d)
+        ;
+
+        
+    
+    
+            marker_271beadab85425cf6be34b29fe51ba85.bindTooltip(
+                `<div>
+                     Flight #71: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_271beadab85425cf6be34b29fe51ba85.setIcon(icon_37d1e65d1024a12a9690ee36bdc08fa5);
+            
+    
+            var marker_279e0f747300737ea98ea21d25713bf2 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_36ecbc5c0884b814c351941020676bc3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_185049c961cbdf09f5b05422404c4be1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_65ba2cef9c9367b8273cc24d5e3ed5f0 = $(`<div id="html_65ba2cef9c9367b8273cc24d5e3ed5f0" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #72 (B1049)</b><br>             <b>Date:</b> 2020-01-07<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_185049c961cbdf09f5b05422404c4be1.setContent(html_65ba2cef9c9367b8273cc24d5e3ed5f0);
+            
+        
+
+        marker_279e0f747300737ea98ea21d25713bf2.bindPopup(popup_185049c961cbdf09f5b05422404c4be1)
+        ;
+
+        
+    
+    
+            marker_279e0f747300737ea98ea21d25713bf2.bindTooltip(
+                `<div>
+                     Flight #72: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_279e0f747300737ea98ea21d25713bf2.setIcon(icon_36ecbc5c0884b814c351941020676bc3);
+            
+    
+            var marker_5a6aa0f4fe8470051ac4b955214a77cd = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_5a20da76e744af4a061766f73a9f7151 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8e88f5084e4d89a0ecee9250a24dd746 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5aa4567ed44302297befe2a6c7584446 = $(`<div id="html_5aa4567ed44302297befe2a6c7584446" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #73 (B1046)</b><br>             <b>Date:</b> 2020-01-19<br>             <b>Payload Mass:</b> 6105.0 kg<br>             <b>Orbit:</b> SO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> None None (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_8e88f5084e4d89a0ecee9250a24dd746.setContent(html_5aa4567ed44302297befe2a6c7584446);
+            
+        
+
+        marker_5a6aa0f4fe8470051ac4b955214a77cd.bindPopup(popup_8e88f5084e4d89a0ecee9250a24dd746)
+        ;
+
+        
+    
+    
+            marker_5a6aa0f4fe8470051ac4b955214a77cd.bindTooltip(
+                `<div>
+                     Flight #73: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5a6aa0f4fe8470051ac4b955214a77cd.setIcon(icon_5a20da76e744af4a061766f73a9f7151);
+            
+    
+            var marker_c2d98d109b3fbf7e38d9c3c50b8ff9e0 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_e11d9f22e6ba12909dcf570198afe721 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_839b8c0dba03cfa869ff194387e1b15c = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_fe40e1d61bfcc64d0171bcb1fbe1c801 = $(`<div id="html_fe40e1d61bfcc64d0171bcb1fbe1c801" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #74 (B1051)</b><br>             <b>Date:</b> 2020-01-29<br>             <b>Payload Mass:</b> 15600.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_839b8c0dba03cfa869ff194387e1b15c.setContent(html_fe40e1d61bfcc64d0171bcb1fbe1c801);
+            
+        
+
+        marker_c2d98d109b3fbf7e38d9c3c50b8ff9e0.bindPopup(popup_839b8c0dba03cfa869ff194387e1b15c)
+        ;
+
+        
+    
+    
+            marker_c2d98d109b3fbf7e38d9c3c50b8ff9e0.bindTooltip(
+                `<div>
+                     Flight #74: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_c2d98d109b3fbf7e38d9c3c50b8ff9e0.setIcon(icon_e11d9f22e6ba12909dcf570198afe721);
+            
+    
+            var marker_744a74c97f25b4f2c1ad49f6cf35ac3b = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_dbb8a75b2fa9b67ecec8133e1b8a8799 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c62690907e146ee01161b81bdb5b6eb4 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8423cfdeb6b06b331c8d97c57150b668 = $(`<div id="html_8423cfdeb6b06b331c8d97c57150b668" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #75 (B1056)</b><br>             <b>Date:</b> 2020-02-17<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> False ASDS (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_c62690907e146ee01161b81bdb5b6eb4.setContent(html_8423cfdeb6b06b331c8d97c57150b668);
+            
+        
+
+        marker_744a74c97f25b4f2c1ad49f6cf35ac3b.bindPopup(popup_c62690907e146ee01161b81bdb5b6eb4)
+        ;
+
+        
+    
+    
+            marker_744a74c97f25b4f2c1ad49f6cf35ac3b.bindTooltip(
+                `<div>
+                     Flight #75: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_744a74c97f25b4f2c1ad49f6cf35ac3b.setIcon(icon_dbb8a75b2fa9b67ecec8133e1b8a8799);
+            
+    
+            var marker_2ca4ea2625f8ecdda6a9c356c57ce6e5 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_06a5adb024d45980bf030574cf5378b4 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3ec9896c19bca257f0c1fc68fd69fc92 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_72c4b3b522ee8f96d87869317d500eb9 = $(`<div id="html_72c4b3b522ee8f96d87869317d500eb9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #76 (B1059)</b><br>             <b>Date:</b> 2020-03-07<br>             <b>Payload Mass:</b> 1977.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_3ec9896c19bca257f0c1fc68fd69fc92.setContent(html_72c4b3b522ee8f96d87869317d500eb9);
+            
+        
+
+        marker_2ca4ea2625f8ecdda6a9c356c57ce6e5.bindPopup(popup_3ec9896c19bca257f0c1fc68fd69fc92)
+        ;
+
+        
+    
+    
+            marker_2ca4ea2625f8ecdda6a9c356c57ce6e5.bindTooltip(
+                `<div>
+                     Flight #76: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2ca4ea2625f8ecdda6a9c356c57ce6e5.setIcon(icon_06a5adb024d45980bf030574cf5378b4);
+            
+    
+            var marker_05e84dbd8f0dd7d48371dd5827f01cf6 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_8d14b5a75906efe61a4a2799b4f6a89a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "times",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_77db7e42d98605e636469fa0328ab612 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e5e0d574f9fb52807ea243def1d98026 = $(`<div id="html_e5e0d574f9fb52807ea243def1d98026" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #C62828;">Flight #77 (B1048)</b><br>             <b>Date:</b> 2020-03-18<br>             <b>Payload Mass:</b> 15600.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> False ASDS (Unsuccessful / Expended)         </div>         </div>`)[0];
+                popup_77db7e42d98605e636469fa0328ab612.setContent(html_e5e0d574f9fb52807ea243def1d98026);
+            
+        
+
+        marker_05e84dbd8f0dd7d48371dd5827f01cf6.bindPopup(popup_77db7e42d98605e636469fa0328ab612)
+        ;
+
+        
+    
+    
+            marker_05e84dbd8f0dd7d48371dd5827f01cf6.bindTooltip(
+                `<div>
+                     Flight #77: Unsuccessful / Expended
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_05e84dbd8f0dd7d48371dd5827f01cf6.setIcon(icon_8d14b5a75906efe61a4a2799b4f6a89a);
+            
+    
+            var marker_cc571a0b0ad92389b009c96bd70fd41c = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_b6e33d9b7200a021a3c4bf0d014c0289 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6d975b384b62fc1698d9ac0887831b9a = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_e420c2a3fa33c6815b2aa63bebd20f39 = $(`<div id="html_e420c2a3fa33c6815b2aa63bebd20f39" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #78 (B1051)</b><br>             <b>Date:</b> 2020-04-22<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_6d975b384b62fc1698d9ac0887831b9a.setContent(html_e420c2a3fa33c6815b2aa63bebd20f39);
+            
+        
+
+        marker_cc571a0b0ad92389b009c96bd70fd41c.bindPopup(popup_6d975b384b62fc1698d9ac0887831b9a)
+        ;
+
+        
+    
+    
+            marker_cc571a0b0ad92389b009c96bd70fd41c.bindTooltip(
+                `<div>
+                     Flight #78: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cc571a0b0ad92389b009c96bd70fd41c.setIcon(icon_b6e33d9b7200a021a3c4bf0d014c0289);
+            
+    
+            var marker_7b7a98e46b72816ce2e8362c4330609e = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_341cde4d114cb24655cfe0be1079fded = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_88f84398c393f225c0bee54760fc0af3 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_aabb1e073e6498a588ac87f073727668 = $(`<div id="html_aabb1e073e6498a588ac87f073727668" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #79 (B1058)</b><br>             <b>Date:</b> 2020-05-30<br>             <b>Payload Mass:</b> 9525.0 kg<br>             <b>Orbit:</b> ISS<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_88f84398c393f225c0bee54760fc0af3.setContent(html_aabb1e073e6498a588ac87f073727668);
+            
+        
+
+        marker_7b7a98e46b72816ce2e8362c4330609e.bindPopup(popup_88f84398c393f225c0bee54760fc0af3)
+        ;
+
+        
+    
+    
+            marker_7b7a98e46b72816ce2e8362c4330609e.bindTooltip(
+                `<div>
+                     Flight #79: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7b7a98e46b72816ce2e8362c4330609e.setIcon(icon_341cde4d114cb24655cfe0be1079fded);
+            
+    
+            var marker_b9beb4d1a1a66a4aea9209d450188ab6 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_5efb318fe70db080a33e1b133a592f6d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6e6878d1fea2aa679bd2d305a8d0768b = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_49eeea6e320c60d8798206b6b43222f7 = $(`<div id="html_49eeea6e320c60d8798206b6b43222f7" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #80 (B1049)</b><br>             <b>Date:</b> 2020-06-04<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_6e6878d1fea2aa679bd2d305a8d0768b.setContent(html_49eeea6e320c60d8798206b6b43222f7);
+            
+        
+
+        marker_b9beb4d1a1a66a4aea9209d450188ab6.bindPopup(popup_6e6878d1fea2aa679bd2d305a8d0768b)
+        ;
+
+        
+    
+    
+            marker_b9beb4d1a1a66a4aea9209d450188ab6.bindTooltip(
+                `<div>
+                     Flight #80: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b9beb4d1a1a66a4aea9209d450188ab6.setIcon(icon_5efb318fe70db080a33e1b133a592f6d);
+            
+    
+            var marker_fad1047e937618a146417ae9d8f97c68 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_0769edccdc0d56bc443eacb418a29afd = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_84a27358901dd032911cfca2db045782 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_70d0b870c9d5a74d3938eb50cc791144 = $(`<div id="html_70d0b870c9d5a74d3938eb50cc791144" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #81 (B1059)</b><br>             <b>Date:</b> 2020-06-13<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_84a27358901dd032911cfca2db045782.setContent(html_70d0b870c9d5a74d3938eb50cc791144);
+            
+        
+
+        marker_fad1047e937618a146417ae9d8f97c68.bindPopup(popup_84a27358901dd032911cfca2db045782)
+        ;
+
+        
+    
+    
+            marker_fad1047e937618a146417ae9d8f97c68.bindTooltip(
+                `<div>
+                     Flight #81: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fad1047e937618a146417ae9d8f97c68.setIcon(icon_0769edccdc0d56bc443eacb418a29afd);
+            
+    
+            var marker_fb3cfbc10f893a4731f70901cfefda6d = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_30ee613ac0413eb6bca71c2add4c719e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e3a4dc5384a882edae3276ae9b3be1bd = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_90877aed1a8fcbb95948e1509a10f05e = $(`<div id="html_90877aed1a8fcbb95948e1509a10f05e" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #82 (B1060)</b><br>             <b>Date:</b> 2020-06-30<br>             <b>Payload Mass:</b> 3880.0 kg<br>             <b>Orbit:</b> MEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_e3a4dc5384a882edae3276ae9b3be1bd.setContent(html_90877aed1a8fcbb95948e1509a10f05e);
+            
+        
+
+        marker_fb3cfbc10f893a4731f70901cfefda6d.bindPopup(popup_e3a4dc5384a882edae3276ae9b3be1bd)
+        ;
+
+        
+    
+    
+            marker_fb3cfbc10f893a4731f70901cfefda6d.bindTooltip(
+                `<div>
+                     Flight #82: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fb3cfbc10f893a4731f70901cfefda6d.setIcon(icon_30ee613ac0413eb6bca71c2add4c719e);
+            
+    
+            var marker_982b3a778665e08d8908107791b8e0fd = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_a2d52488aa85246bbedaa9e07c8bd203 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_467c6c70893ce55e3d8c84a6fb8ecbdb = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_9c11672fd496a8e50d059dd6abc1bdd9 = $(`<div id="html_9c11672fd496a8e50d059dd6abc1bdd9" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #83 (B1058)</b><br>             <b>Date:</b> 2020-07-20<br>             <b>Payload Mass:</b> 6105.0 kg<br>             <b>Orbit:</b> GEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_467c6c70893ce55e3d8c84a6fb8ecbdb.setContent(html_9c11672fd496a8e50d059dd6abc1bdd9);
+            
+        
+
+        marker_982b3a778665e08d8908107791b8e0fd.bindPopup(popup_467c6c70893ce55e3d8c84a6fb8ecbdb)
+        ;
+
+        
+    
+    
+            marker_982b3a778665e08d8908107791b8e0fd.bindTooltip(
+                `<div>
+                     Flight #83: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_982b3a778665e08d8908107791b8e0fd.setIcon(icon_a2d52488aa85246bbedaa9e07c8bd203);
+            
+    
+            var marker_3e6afc7c727d7888cbe525555c8da6ff = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_e943e835deb8df8ad4ab72a7109522f6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ac5220960b8f27ad86ae97263bd1d391 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_8299b8b32c58405545e661b5d9b5a986 = $(`<div id="html_8299b8b32c58405545e661b5d9b5a986" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #84 (B1049)</b><br>             <b>Date:</b> 2020-08-18<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_ac5220960b8f27ad86ae97263bd1d391.setContent(html_8299b8b32c58405545e661b5d9b5a986);
+            
+        
+
+        marker_3e6afc7c727d7888cbe525555c8da6ff.bindPopup(popup_ac5220960b8f27ad86ae97263bd1d391)
+        ;
+
+        
+    
+    
+            marker_3e6afc7c727d7888cbe525555c8da6ff.bindTooltip(
+                `<div>
+                     Flight #84: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3e6afc7c727d7888cbe525555c8da6ff.setIcon(icon_e943e835deb8df8ad4ab72a7109522f6);
+            
+    
+            var marker_84455c2b2b16790851fef6eea7fb50b6 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_fb4f99ce8cd2d8dd21e4dcc4bc5995e1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a8ed7e559f27c59e43dc2e8ca80c41db = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c21212adacbb08b50778426439309727 = $(`<div id="html_c21212adacbb08b50778426439309727" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #85 (B1059)</b><br>             <b>Date:</b> 2020-08-30<br>             <b>Payload Mass:</b> 1600.0 kg<br>             <b>Orbit:</b> SSO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True RTLS (Successful Landing)         </div>         </div>`)[0];
+                popup_a8ed7e559f27c59e43dc2e8ca80c41db.setContent(html_c21212adacbb08b50778426439309727);
+            
+        
+
+        marker_84455c2b2b16790851fef6eea7fb50b6.bindPopup(popup_a8ed7e559f27c59e43dc2e8ca80c41db)
+        ;
+
+        
+    
+    
+            marker_84455c2b2b16790851fef6eea7fb50b6.bindTooltip(
+                `<div>
+                     Flight #85: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_84455c2b2b16790851fef6eea7fb50b6.setIcon(icon_fb4f99ce8cd2d8dd21e4dcc4bc5995e1);
+            
+    
+            var marker_f28362425af39a49b2e47596a3f61729 = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_bcae3dcd83969af6fd55def4dd4e1429 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a2b88092d8e922a1af57e5a00a4327c8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_5077f262820041d51ccb8617c5c1588a = $(`<div id="html_5077f262820041d51ccb8617c5c1588a" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #86 (B1060)</b><br>             <b>Date:</b> 2020-09-03<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_a2b88092d8e922a1af57e5a00a4327c8.setContent(html_5077f262820041d51ccb8617c5c1588a);
+            
+        
+
+        marker_f28362425af39a49b2e47596a3f61729.bindPopup(popup_a2b88092d8e922a1af57e5a00a4327c8)
+        ;
+
+        
+    
+    
+            marker_f28362425af39a49b2e47596a3f61729.bindTooltip(
+                `<div>
+                     Flight #86: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f28362425af39a49b2e47596a3f61729.setIcon(icon_bcae3dcd83969af6fd55def4dd4e1429);
+            
+    
+            var marker_0ea125afa4e8ab2a11f4c38de75ed43b = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_2e76479475ba693e22af0c31d0b9aa1d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_922177b7bb0d6aef9c02fa7b2ffb7705 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_516a7d2e5f2b298b7d7e697694abc736 = $(`<div id="html_516a7d2e5f2b298b7d7e697694abc736" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #87 (B1058)</b><br>             <b>Date:</b> 2020-10-06<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_922177b7bb0d6aef9c02fa7b2ffb7705.setContent(html_516a7d2e5f2b298b7d7e697694abc736);
+            
+        
+
+        marker_0ea125afa4e8ab2a11f4c38de75ed43b.bindPopup(popup_922177b7bb0d6aef9c02fa7b2ffb7705)
+        ;
+
+        
+    
+    
+            marker_0ea125afa4e8ab2a11f4c38de75ed43b.bindTooltip(
+                `<div>
+                     Flight #87: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0ea125afa4e8ab2a11f4c38de75ed43b.setIcon(icon_2e76479475ba693e22af0c31d0b9aa1d);
+            
+    
+            var marker_6437152dea43ab120865677cacad7a5a = L.marker(
+                [28.573255, -80.646895],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_334cba829a3408a809bd9c58d4de084f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3176a0438ba8d1cfc94aaab88237ed22 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7d1b4d77ff50d66c3a6d3aad403a8d4b = $(`<div id="html_7d1b4d77ff50d66c3a6d3aad403a8d4b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #88 (B1051)</b><br>             <b>Date:</b> 2020-10-18<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> KSC LC 39A<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_3176a0438ba8d1cfc94aaab88237ed22.setContent(html_7d1b4d77ff50d66c3a6d3aad403a8d4b);
+            
+        
+
+        marker_6437152dea43ab120865677cacad7a5a.bindPopup(popup_3176a0438ba8d1cfc94aaab88237ed22)
+        ;
+
+        
+    
+    
+            marker_6437152dea43ab120865677cacad7a5a.bindTooltip(
+                `<div>
+                     Flight #88: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6437152dea43ab120865677cacad7a5a.setIcon(icon_334cba829a3408a809bd9c58d4de084f);
+            
+    
+            var marker_dbd264376cb24619318f8dbe0fbe613f = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_52fbe552aec6f78539382ef5b5978106 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8167f0e725117dfa4deda5e40173754e = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_898f47a30d82b90dbcd5cb990740079b = $(`<div id="html_898f47a30d82b90dbcd5cb990740079b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #89 (B1060)</b><br>             <b>Date:</b> 2020-10-24<br>             <b>Payload Mass:</b> 15400.0 kg<br>             <b>Orbit:</b> VLEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_8167f0e725117dfa4deda5e40173754e.setContent(html_898f47a30d82b90dbcd5cb990740079b);
+            
+        
+
+        marker_dbd264376cb24619318f8dbe0fbe613f.bindPopup(popup_8167f0e725117dfa4deda5e40173754e)
+        ;
+
+        
+    
+    
+            marker_dbd264376cb24619318f8dbe0fbe613f.bindTooltip(
+                `<div>
+                     Flight #89: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_dbd264376cb24619318f8dbe0fbe613f.setIcon(icon_52fbe552aec6f78539382ef5b5978106);
+            
+    
+            var marker_be537a2b81f64d47d8ecadc29c70e3e2 = L.marker(
+                [28.562302, -80.577356],
+                {
+}
+            ).addTo(marker_cluster_930c9ad24a79cec35a806afb53a02b26);
+        
+    
+            var icon_e8ed5c9f496f3aaa3f80d9988554f20c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "check",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c1d03353414974a8f22789b1a8d61709 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_77de4ee9aa4110b728dccd3b4980583b = $(`<div id="html_77de4ee9aa4110b728dccd3b4980583b" style="width: 100.0%; height: 100.0%;">         <div style="font-family: Arial, sans-serif; min-width: 180px;">             <b style="color: #2E7D32;">Flight #90 (B1062)</b><br>             <b>Date:</b> 2020-11-05<br>             <b>Payload Mass:</b> 3681.0 kg<br>             <b>Orbit:</b> MEO<br>             <b>Site:</b> CCAFS SLC 40<br>             <b>Outcome:</b> True ASDS (Successful Landing)         </div>         </div>`)[0];
+                popup_c1d03353414974a8f22789b1a8d61709.setContent(html_77de4ee9aa4110b728dccd3b4980583b);
+            
+        
+
+        marker_be537a2b81f64d47d8ecadc29c70e3e2.bindPopup(popup_c1d03353414974a8f22789b1a8d61709)
+        ;
+
+        
+    
+    
+            marker_be537a2b81f64d47d8ecadc29c70e3e2.bindTooltip(
+                `<div>
+                     Flight #90: Successful Landing
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_be537a2b81f64d47d8ecadc29c70e3e2.setIcon(icon_e8ed5c9f496f3aaa3f80d9988554f20c);
+            
+    
+            marker_cluster_930c9ad24a79cec35a806afb53a02b26.addTo(map_21e26481c996c84b722e96ed77eb3244);
+        
+</script>
+</html>

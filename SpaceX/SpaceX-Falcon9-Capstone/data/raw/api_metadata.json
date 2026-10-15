@@ -1,0 +1,25 @@
+{
+  "source": "IBM Skills Network / SpaceX API snapshot",
+  "url": "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-DS0321EN-SkillsNetwork/datasets/dataset_part_1.csv",
+  "retrieved_at": "2026-10-15T11:41:39.462078",
+  "total_records": 90,
+  "columns": [
+    "FlightNumber",
+    "Date",
+    "BoosterVersion",
+    "PayloadMass",
+    "Orbit",
+    "LaunchSite",
+    "Outcome",
+    "Flights",
+    "GridFins",
+    "Reused",
+    "Legs",
+    "LandingPad",
+    "Block",
+    "ReusedCount",
+    "Serial",
+    "Longitude",
+    "Latitude"
+  ]
+}
